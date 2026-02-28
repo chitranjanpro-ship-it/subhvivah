@@ -15,6 +15,7 @@ import PrivacyPage from "@/react-app/pages/Privacy";
 import TermsPage from "@/react-app/pages/Terms";
 import SafetyPage from "@/react-app/pages/Safety";
 import NotFoundPage from "@/react-app/pages/NotFound";
+import RegisterPage from "@/react-app/pages/Register";
 
 function TitleManager() {
   const location = useLocation();
@@ -37,6 +38,7 @@ export default function App() {
           <Route path="/profile/:profileId" element={<ProfileDetailPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/my-profile" element={<MyProfilePage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/help" element={<HelpPage />} />
