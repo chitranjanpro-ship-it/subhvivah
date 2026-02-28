@@ -1,0 +1,11 @@
+ALTER TABLE profiles ADD COLUMN premium_status INTEGER DEFAULT 0;
+ALTER TABLE profiles ADD COLUMN premium_expiry DATE;
+ALTER TABLE profiles ADD COLUMN referral_count INTEGER DEFAULT 0;
+ALTER TABLE profiles ADD COLUMN verified_referral_count INTEGER DEFAULT 0;
+ALTER TABLE profiles ADD COLUMN contribution_type TEXT;
+ALTER TABLE profiles ADD COLUMN success_reward_status TEXT;
+ALTER TABLE profiles ADD COLUMN referral_network_id TEXT;
+ALTER TABLE profiles ADD COLUMN trust_score INTEGER DEFAULT 0;
+CREATE INDEX idx_profiles_premium_status ON profiles(premium_status);
+CREATE INDEX idx_profiles_premium_expiry ON profiles(premium_expiry);
+CREATE INDEX idx_profiles_trust_score ON profiles(trust_score);

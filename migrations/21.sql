@@ -1,0 +1,19 @@
+CREATE TABLE admins (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id TEXT NOT NULL UNIQUE,
+  email TEXT NOT NULL UNIQUE,
+  role TEXT NOT NULL,
+  permissions_json TEXT,
+  last_login_ip TEXT,
+  last_login_device TEXT,
+  twofa_enabled INTEGER DEFAULT 0,
+  account_status TEXT DEFAULT 'active',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX idx_admins_role ON admins(role);
+ALTER TABLE profiles ADD COLUMN shadow_restricted INTEGER DEFAULT 0;
+ALTER TABLE profiles ADD COLUMN suspend_until DATE;
+ALTER TABLE profiles ADD COLUMN monitored INTEGER DEFAULT 0;
+ALTER TABLE profiles ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE profiles ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;

@@ -1,0 +1,16 @@
+ALTER TABLE profiles DROP COLUMN verification_level;
+ALTER TABLE profiles DROP COLUMN pan_hash;
+ALTER TABLE profiles DROP COLUMN pan_masked;
+ALTER TABLE profiles DROP COLUMN selfie_verified;
+ALTER TABLE profiles DROP COLUMN family_verified;
+ALTER TABLE profiles DROP COLUMN verification_timestamp;
+ALTER TABLE profiles DROP COLUMN phone_number;
+ALTER TABLE profiles DROP COLUMN phone_verified;
+ALTER TABLE profiles DROP COLUMN risk_score;
+ALTER TABLE profiles DROP COLUMN fraud_flags;
+ALTER TABLE profiles DROP COLUMN device_fingerprint;
+ALTER TABLE profiles DROP COLUMN last_ip;
+DROP INDEX IF EXISTS idx_profiles_verification_level;
+DROP INDEX IF EXISTS idx_profiles_pan_hash;
+DROP INDEX IF EXISTS idx_profiles_device_fingerprint;
+DROP INDEX IF EXISTS idx_profiles_risk_score;

@@ -1,0 +1,16 @@
+ALTER TABLE profiles ADD COLUMN verification_level INTEGER DEFAULT 0;
+ALTER TABLE profiles ADD COLUMN pan_hash TEXT;
+ALTER TABLE profiles ADD COLUMN pan_masked TEXT;
+ALTER TABLE profiles ADD COLUMN selfie_verified INTEGER DEFAULT 0;
+ALTER TABLE profiles ADD COLUMN family_verified INTEGER DEFAULT 0;
+ALTER TABLE profiles ADD COLUMN verification_timestamp TIMESTAMP;
+ALTER TABLE profiles ADD COLUMN phone_number TEXT;
+ALTER TABLE profiles ADD COLUMN phone_verified INTEGER DEFAULT 0;
+ALTER TABLE profiles ADD COLUMN risk_score INTEGER DEFAULT 0;
+ALTER TABLE profiles ADD COLUMN fraud_flags TEXT;
+ALTER TABLE profiles ADD COLUMN device_fingerprint TEXT;
+ALTER TABLE profiles ADD COLUMN last_ip TEXT;
+CREATE INDEX idx_profiles_verification_level ON profiles(verification_level);
+CREATE INDEX idx_profiles_pan_hash ON profiles(pan_hash);
+CREATE INDEX idx_profiles_device_fingerprint ON profiles(device_fingerprint);
+CREATE INDEX idx_profiles_risk_score ON profiles(risk_score);

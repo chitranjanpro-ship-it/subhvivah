@@ -1,0 +1,11 @@
+ALTER TABLE profiles DROP COLUMN premium_status;
+ALTER TABLE profiles DROP COLUMN premium_expiry;
+ALTER TABLE profiles DROP COLUMN referral_count;
+ALTER TABLE profiles DROP COLUMN verified_referral_count;
+ALTER TABLE profiles DROP COLUMN contribution_type;
+ALTER TABLE profiles DROP COLUMN success_reward_status;
+ALTER TABLE profiles DROP COLUMN referral_network_id;
+ALTER TABLE profiles DROP COLUMN trust_score;
+DROP INDEX IF EXISTS idx_profiles_premium_status;
+DROP INDEX IF EXISTS idx_profiles_premium_expiry;
+DROP INDEX IF EXISTS idx_profiles_trust_score;
