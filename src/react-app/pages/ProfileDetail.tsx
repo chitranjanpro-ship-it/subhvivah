@@ -1,10 +1,9 @@
-import { useParams, Link, useNavigate } from "react-router";
+import { useParams, Link } from "react-router";
 import { Header } from "@/react-app/components/Header";
 import { Footer } from "@/react-app/components/Footer";
 import { Button } from "@/react-app/components/ui/button";
 import { Badge } from "@/react-app/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/react-app/components/ui/card";
-import { Separator } from "@/react-app/components/ui/separator";
 import { sampleProfiles } from "@/react-app/data/sampleProfiles";
 import { getCommunityById } from "@/react-app/data/communities";
 import {
@@ -39,7 +38,6 @@ function cmToFeetInches(cm: number): string {
 
 export default function ProfileDetailPage() {
   const { profileId } = useParams<{ profileId: string }>();
-  const navigate = useNavigate();
   const low = typeof window !== "undefined" && localStorage.getItem("lowBandwidth") === "true";
   
   const profile = sampleProfiles.find((p) => p.id === Number(profileId));

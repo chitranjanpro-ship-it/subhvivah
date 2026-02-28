@@ -1,6 +1,5 @@
 import { useParams, Navigate } from "react-router";
 import { getCommunityById } from "@/react-app/data/communities";
-import BrowsePage from "./Browse";
 
 export default function CommunityPage() {
   const { communityId } = useParams<{ communityId: string }>();

@@ -1,4 +1,5 @@
 import path from "path";
+import fs from "fs";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { cloudflare } from "@cloudflare/vite-plugin";
@@ -9,9 +10,17 @@ export default defineConfig({
 	  plugins: [
 	    ...mochaPlugins(process.env as any),
 	    react(),
-	    cloudflare({
-	      auxiliaryWorkers: [{ configPath: "/mocha/emails-service/wrangler.json" }],
-	    }),
+	    ...(process.env.ENABLE_CF_DEV === "1"
+	      ? [
+	          (() => {
+	            const auxPath = path.resolve(__dirname, "mocha/emails-service/wrangler.json");
+	            if (fs.existsSync(auxPath)) {
+	              return cloudflare({ auxiliaryWorkers: [{ configPath: auxPath }] });
+	            }
+	            return cloudflare();
+	          })(),
+	        ]
+	      : []),
 	  ],
 	  server: {
 	    allowedHosts: true,

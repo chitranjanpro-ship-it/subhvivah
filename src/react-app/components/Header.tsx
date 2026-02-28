@@ -9,7 +9,7 @@ import {
 } from "@/react-app/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/react-app/components/ui/avatar";
 import { Heart, Menu, X, User, LogOut, Settings, Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@getmocha/users-service/react";
 
 export function Header() {
@@ -33,12 +33,24 @@ export function Header() {
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-saffron to-maroon flex items-center justify-center shadow-lg shadow-saffron/20">
-              <Heart className="w-5 h-5 text-white fill-white" />
+          <Link to="/" className="flex items-center gap-2 group" aria-label="SubhVivah Home">
+            <div className="relative w-10 h-10 rounded-full bg-gradient-to-br from-saffron to-maroon flex items-center justify-center shadow-lg shadow-saffron/20 overflow-hidden">
+              <img
+                src="/logo.png"
+                alt="SubhVivah"
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${showHindi ? "opacity-0" : "opacity-100"}`}
+                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display='none'; }}
+              />
+              <img
+                src="/logo-hindi.png"
+                alt="शुभ विवाह"
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${showHindi ? "opacity-100" : "opacity-0"}`}
+                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display='none'; }}
+              />
+              <Heart className="relative w-5 h-5 text-white fill-white" />
             </div>
             <span className="font-display text-xl font-bold bg-gradient-to-r from-saffron to-maroon bg-clip-text text-transparent">
-              VivahBandhan
+              SubhVivah
             </span>
           </Link>
 

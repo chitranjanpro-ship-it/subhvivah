@@ -8,15 +8,16 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-saffron to-maroon flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-saffron to-maroon flex items-center justify-center overflow-hidden">
+                <img src="/logo.png" alt="SubhVivah" className="w-full h-full object-cover" onError={(e) => { (e.currentTarget as HTMLImageElement).style.display='none'; }} />
                 <Heart className="w-5 h-5 text-white fill-white" />
               </div>
               <span className="font-display text-xl font-bold bg-gradient-to-r from-saffron to-maroon bg-clip-text text-transparent">
-                VivahBandhan
+                SubhVivah
               </span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              Connecting hearts across communities. Find your perfect match with VivahBandhan.
+              Connecting hearts across communities. Find your perfect match with SubhVivah.
             </p>
           </div>
 
@@ -52,7 +53,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-border/50 mt-8 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} VivahBandhan. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} SubhVivah. All rights reserved.</p>
           <p>Made with <Heart className="w-4 h-4 inline text-maroon fill-maroon" /> in India</p>
         </div>
       </div>

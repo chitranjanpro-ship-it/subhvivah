@@ -45,7 +45,7 @@ export default function HomePage() {
             </h1>
             
             <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-              VivahBandhan brings together families from diverse Indian communities. 
+              SubhVivah brings together families from diverse Indian communities. 
               Discover compatible matches who share your values, traditions, and aspirations.
             </p>
 
@@ -119,7 +119,7 @@ export default function HomePage() {
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
               Why Choose{" "}
               <span className="bg-gradient-to-r from-saffron to-maroon bg-clip-text text-transparent">
-                VivahBandhan
+                SubhVivah
               </span>
             </h2>
           </div>
@@ -177,7 +177,7 @@ export default function HomePage() {
                 Your Life Partner Awaits
               </h2>
               <p className="text-white/90 text-lg mb-8 max-w-xl mx-auto">
-                Join thousands of happy families who found their perfect match through VivahBandhan. 
+                Join thousands of happy families who found their perfect match through SubhVivah. 
                 Registration is free and takes just 2 minutes.
               </p>
               <Button 
