@@ -8,6 +8,13 @@ import AuthCallbackPage from "@/react-app/pages/AuthCallback";
 import ProfileDetailPage from "@/react-app/pages/ProfileDetail";
 import AdminPage from "@/react-app/pages/Admin";
 import MyProfilePage from "@/react-app/pages/MyProfile";
+import AboutPage from "@/react-app/pages/About";
+import ContactPage from "@/react-app/pages/Contact";
+import HelpPage from "@/react-app/pages/Help";
+import PrivacyPage from "@/react-app/pages/Privacy";
+import TermsPage from "@/react-app/pages/Terms";
+import SafetyPage from "@/react-app/pages/Safety";
+import NotFoundPage from "@/react-app/pages/NotFound";
 
 function TitleManager() {
   const location = useLocation();
@@ -30,6 +37,13 @@ export default function App() {
           <Route path="/profile/:profileId" element={<ProfileDetailPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/my-profile" element={<MyProfilePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/help" element={<HelpPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/safety" element={<SafetyPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>
     </AuthProvider>
