@@ -15,6 +15,7 @@ import { useAuth } from "@getmocha/users-service/react";
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, isPending, redirectToLogin, logout } = useAuth();
+  const [showHindi, setShowHindi] = useState(false);
 
   const handleLogin = async () => {
     await redirectToLogin();
@@ -28,6 +29,14 @@ export function Header() {
     if (!name) return "U";
     return name.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2);
   };
+
+  useEffect(() => {
+    const intervalMs = 5000;
+    const id = window.setInterval(() => {
+      setShowHindi((prev) => !prev);
+    }, intervalMs);
+    return () => window.clearInterval(id);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
@@ -49,8 +58,8 @@ export function Header() {
               />
               <Heart className="relative w-5 h-5 text-white fill-white" />
             </div>
-            <span className="font-display text-xl font-bold bg-gradient-to-r from-saffron to-maroon bg-clip-text text-transparent">
-              SubhVivah
+            <span className="font-display text-xl font-bold bg-gradient-to-r from-saffron to-maroon bg-clip-text text-transparent" aria-live="polite">
+              {showHindi ? "शुभ विवाह" : "SubhVivah"}
             </span>
           </Link>
 

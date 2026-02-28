@@ -1,19 +1,39 @@
 import { Link } from "react-router";
 import { Heart } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export function Footer() {
+  const [showHindi, setShowHindi] = useState(false);
+
+  useEffect(() => {
+    const intervalMs = 5000;
+    const id = window.setInterval(() => setShowHindi((p) => !p), intervalMs);
+    return () => window.clearInterval(id);
+  }, []);
+
   return (
     <footer className="bg-gradient-to-b from-muted/30 to-muted/50 border-t border-border/50 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-saffron to-maroon flex items-center justify-center overflow-hidden">
-                <img src="/logo.png" alt="SubhVivah" className="w-full h-full object-cover" onError={(e) => { (e.currentTarget as HTMLImageElement).style.display='none'; }} />
+              <div className="relative w-10 h-10 rounded-full bg-gradient-to-br from-saffron to-maroon flex items-center justify-center overflow-hidden">
+                <img 
+                  src="/logo.png" 
+                  alt="SubhVivah" 
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${showHindi ? "opacity-0" : "opacity-100"}`}
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display='none'; }} 
+                />
+                <img 
+                  src="/logo-hindi.png" 
+                  alt="शुभ विवाह" 
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${showHindi ? "opacity-100" : "opacity-0"}`}
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display='none'; }} 
+                />
                 <Heart className="w-5 h-5 text-white fill-white" />
               </div>
-              <span className="font-display text-xl font-bold bg-gradient-to-r from-saffron to-maroon bg-clip-text text-transparent">
-                SubhVivah
+              <span className="font-display text-xl font-bold bg-gradient-to-r from-saffron to-maroon bg-clip-text text-transparent" aria-live="polite">
+                {showHindi ? "शुभ विवाह" : "SubhVivah"}
               </span>
             </Link>
             <p className="text-sm text-muted-foreground">
