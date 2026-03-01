@@ -3,10 +3,12 @@
   "builds": [
     { "src": "package.json", "use": "@vercel/static-build", "config": { "distDir": "dist" } }
   ],
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/og-images/(.*)", "destination": "/og-images/$1" },
-    { "source": "/(.*)", "destination": "/" }
+  "functions": {
+    "api/**/*.ts": { "runtime": "nodejs20.x" }
+  },
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/" }
   ],
   "framework": null,
   "public": true
