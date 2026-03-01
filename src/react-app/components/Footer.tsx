@@ -48,6 +48,7 @@ export function Footer() {
               <li><Link to="/browse" className="text-muted-foreground hover:text-saffron transition-colors">Browse Profiles</Link></li>
               <li><Link to="/about" className="text-muted-foreground hover:text-saffron transition-colors">About Us</Link></li>
               <li><Link to="/contact" className="text-muted-foreground hover:text-saffron transition-colors">Contact</Link></li>
+              <li><Link to="/admin/cms" className="text-muted-foreground hover:text-saffron transition-colors">Admin CMS</Link></li>
             </ul>
             <p className="mt-4 text-xs text-muted-foreground">
               Powered by <span className="font-medium text-foreground">S &amp; S Software Development And Engineering, Jamshedpur</span>
