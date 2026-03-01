@@ -128,14 +128,11 @@ export function Header() {
               </DropdownMenu>
             ) : (
               <>
-                <Button variant="ghost" className="text-muted-foreground hover:text-saffron" onClick={handleLogin}>
-                  Sign In
+                <Button asChild variant="ghost" className="text-muted-foreground hover:text-saffron">
+                  <Link to="/signin">Sign In</Link>
                 </Button>
-                <Button 
-                  className="bg-gradient-to-r from-saffron to-maroon hover:opacity-90 text-white shadow-lg shadow-saffron/25" 
-                  onClick={handleLogin}
-                >
-                  Register Free
+                <Button asChild className="bg-gradient-to-r from-saffron to-maroon hover:opacity-90 text-white shadow-lg shadow-saffron/25">
+                  <Link to="/register">Register Free</Link>
                 </Button>
               </>
             )}
@@ -187,14 +184,11 @@ export function Header() {
                 </>
               ) : (
                 <div className="flex gap-2 px-4 pt-2">
-                  <Button variant="outline" className="flex-1" onClick={handleLogin}>
-                    Sign In
+                  <Button asChild variant="outline" className="flex-1">
+                    <Link to="/signin">Sign In</Link>
                   </Button>
-                  <Button 
-                    className="flex-1 bg-gradient-to-r from-saffron to-maroon text-white" 
-                    onClick={handleLogin}
-                  >
-                    Register
+                  <Button asChild className="flex-1 bg-gradient-to-r from-saffron to-maroon text-white">
+                    <Link to="/register">Register</Link>
                   </Button>
                 </div>
               )}

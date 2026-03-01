@@ -74,7 +74,11 @@ export function Footer() {
 
         <div className="border-t border-border/50 mt-8 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <p>© {new Date().getFullYear()} SubhVivah. All rights reserved.</p>
-          <p>Made with <Heart className="w-4 h-4 inline text-maroon fill-maroon" /> in India</p>
+          <p>
+            Powered by <span className="font-medium text-foreground">S &amp; S Software Development And Engineering, Jamshedpur</span>
+            <span className="mx-2">•</span>
+            Made with <Heart className="w-4 h-4 inline text-maroon fill-maroon" /> in India
+          </p>
         </div>
       </div>
     </footer>

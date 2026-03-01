@@ -11,11 +11,13 @@ import MyProfilePage from "@/react-app/pages/MyProfile";
 import AboutPage from "@/react-app/pages/About";
 import ContactPage from "@/react-app/pages/Contact";
 import HelpPage from "@/react-app/pages/Help";
+import AdminCMSPage from "@/react-app/pages/AdminCMS";
 import PrivacyPage from "@/react-app/pages/Privacy";
 import TermsPage from "@/react-app/pages/Terms";
 import SafetyPage from "@/react-app/pages/Safety";
 import NotFoundPage from "@/react-app/pages/NotFound";
 import RegisterPage from "@/react-app/pages/Register";
+import SignInPage from "@/react-app/pages/SignIn";
 
 function TitleManager() {
   const location = useLocation();
@@ -26,9 +28,10 @@ function TitleManager() {
 }
 
 export default function App() {
+  const base = (import.meta.env.BASE_URL || "/").replace(/\/+$/, "") || "/";
   return (
     <AuthProvider>
-      <Router>
+      <Router basename={base}>
         <TitleManager />
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -37,8 +40,10 @@ export default function App() {
           <Route path="/auth/callback" element={<AuthCallbackPage />} />
           <Route path="/profile/:profileId" element={<ProfileDetailPage />} />
           <Route path="/admin" element={<AdminPage />} />
+          <Route path="/admin/cms" element={<AdminCMSPage />} />
           <Route path="/my-profile" element={<MyProfilePage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/signin" element={<SignInPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/help" element={<HelpPage />} />
