@@ -49,6 +49,9 @@ export function Footer() {
               <li><Link to="/about" className="text-muted-foreground hover:text-saffron transition-colors">About Us</Link></li>
               <li><Link to="/contact" className="text-muted-foreground hover:text-saffron transition-colors">Contact</Link></li>
             </ul>
+            <p className="mt-4 text-xs text-muted-foreground">
+              Powered by <span className="font-medium text-foreground">S &amp; S Software Development And Engineering, Jamshedpur</span>
+            </p>
           </div>
 
           <div>

@@ -184,12 +184,12 @@ export function Header() {
                 </>
               ) : (
                 <div className="flex gap-2 px-4 pt-2">
-                  <Button asChild variant="outline" className="flex-1">
-                    <Link to="/signin">Sign In</Link>
-                  </Button>
-                  <Button asChild className="flex-1 bg-gradient-to-r from-saffron to-maroon text-white">
-                    <Link to="/register">Register</Link>
-                  </Button>
+                  <Link to="/signin" className="flex-1 inline-flex items-center justify-center h-10 rounded-md border border-border text-foreground hover:text-saffron">
+                    Sign In
+                  </Link>
+                  <Link to="/register" className="flex-1 inline-flex items-center justify-center h-10 rounded-md text-white bg-gradient-to-r from-saffron to-maroon">
+                    Register
+                  </Link>
                 </div>
               )}
             </nav>
