@@ -40,10 +40,12 @@
     "typescript-eslint": "8.31.0",
     "vite": "^7.1.3",
     "wrangler": "^4.33.0",
-    "knip": "^5.51.0"
+    "knip": "^5.51.0",
+    "sharp": "^0.33.5"
   },
   "scripts": {
-    "build": "tsc -b && vite build",
+    "generate:og": "node scripts/generate-og.mjs",
+    "build": "npm run generate:og && tsc -b && vite build",
     "cf-typegen": "wrangler types",
     "check": "tsc && vite build && wrangler deploy --dry-run",
     "dev": "vite",
