@@ -1,0 +1,73 @@
+,,edit,@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #f43f5e;
+  --primary-foreground: #ffffff;
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --border: #e2e8f0;
+}
+
+.dark {
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #1e293b;
+  --card-foreground: #f8fafc;
+  --border: #334155;
+}
+
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    @apply transition-colors duration-300 antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--foreground);
+    @apply font-bold;
+  }
+}
+
+/* Custom Primary Color Utilities */
+.bg-primary {
+  background-color: var(--primary-color) !important;
+  color: var(--primary-foreground) !important;
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.border-primary {
+  border-color: var(--primary-color) !important;
+}
+
+.ring-primary {
+  --tw-ring-color: var(--primary-color) !important;
+}
+
+/* Overwrite Tailwind classes to use our variables */
+.text-primary-600 { color: var(--primary-color) !important; }
+.bg-primary-600 { background-color: var(--primary-color) !important; }
+.hover\:bg-primary-700:hover { filter: brightness(0.9); }
+.border-primary-600 { border-color: var(--primary-color) !important; }
+.fill-primary-600 { fill: var(--primary-color) !important; }
+.bg-primary-50 { background-color: var(--primary-color); opacity: 0.1; }
+.text-primary-50 { color: var(--primary-color); opacity: 0.1; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}

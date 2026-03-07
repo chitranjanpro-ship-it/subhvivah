@@ -1,0 +1,34 @@
+{
+  "name": "subhvivah",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "npm run dev --workspace=apps/frontend",
+    "dev:backend": "npm run dev --workspace=apps/backend",
+    "dev:ai": "npm run dev --workspace=apps/ai-service",
+    "build:frontend": "npm run build --workspace=apps/frontend",
+    "build:backend": "npm run build --workspace=apps/backend",
+    "install:all": "npm install && npm install --workspace=apps/frontend && npm install --workspace=apps/backend",
+    "test": "npm test --workspaces"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chitranjanpro-ship-it/subhvivah.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/chitranjanpro-ship-it/subhvivah/issues"
+  },
+  "homepage": "https://github.com/chitranjanpro-ship-it/subhvivah#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

@@ -1,0 +1,237 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  SUB_ADMIN
+  USER
+  BROKER
+}
+
+enum AdminVertical {
+  VERIFICATION
+  SUPPORT
+  SALES
+  CONTENT
+  FINANCE
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum UserType {
+  BRIDE
+  GROOM
+  DIVORCED_BRIDE
+  DIVORCED_GROOM
+  WIDOW
+  WIDOWER
+  PARENT
+  SIBLING
+  FRIEND
+  GUARDIAN
+  RELATIVE
+  MARRIAGE_BROKER
+}
+
+enum ProfileStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+  SUSPENDED
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password      String
+  phone         String?   @unique
+  role          Role      @default(USER)
+  vertical      AdminVertical?
+  isVerified    Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  profiles      Profile[]
+  referrals     Referral[] @relation("Referrer")
+  referredBy    Referral?  @relation("ReferredUser")
+  
+  subscriptions Subscription[]
+  activityLogs  ActivityLog[]
+  chats         ChatParticipant[]
+  sentMessages  Message[]
+  
+  assignedTasks Task[]     @relation("AssignedTo")
+  createdTasks  Task[]     @relation("CreatedBy")
+}
+
+model Task {
+  id            String    @id @default(uuid())
+  title         String
+  description   String?
+  status        TaskStatus @default(PENDING)
+  priority      Priority   @default(MEDIUM)
+  dueDate       DateTime?
+  
+  assignedToId  String
+  assignedTo    User      @relation("AssignedTo", fields: [assignedToId], references: [id])
+  
+  createdById   String
+  createdBy     User      @relation("CreatedBy", fields: [createdById], references: [id])
+  
+  vertical      AdminVertical
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+model Profile {
+  id                String        @id @default(uuid())
+  userId            String
+  user              User          @relation(fields: [userId], references: [id])
+  userType          UserType
+  status            ProfileStatus @default(PENDING)
+  riskScore         Float         @default(0.0)
+  
+  // Basic Details
+  name              String
+  age               Int
+  gender            Gender
+  religion          String
+  caste             String?
+  height            Float?
+  location          String
+  bio               String?
+  
+  // Professional
+  education         String
+  occupation        String
+  company           String?
+  income            Float?
+  
+  // Family
+  familyBackground  String?
+  parentsDetails    String?
+  siblingsDetails   String?
+  
+  // Lifestyle
+  diet              String?
+  smoking           Boolean?
+  drinking          Boolean?
+  
+  // Partner Preferences
+  prefAgeMin        Int?
+  prefAgeMax        Int?
+  prefLocation      String?
+  prefEducation     String?
+  prefLifestyle     String?
+  
+  photos            Photo[]
+  documents         Document[]
+  
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+}
+
+model Photo {
+  id        String   @id @default(uuid())
+  profileId String
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  url       String
+  isMain    Boolean  @default(false)
+  isVerified Boolean @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Document {
+  id          String   @id @default(uuid())
+  profileId   String
+  profile     Profile  @relation(fields: [profileId], references: [id])
+  type        String   // ID, Employment, Income
+  url         String
+  isVerified  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model Subscription {
+  id          String    @id @default(uuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  planName    String
+  startDate   DateTime  @default(now())
+  endDate     DateTime
+  isActive    Boolean   @default(true)
+}
+
+model Referral {
+  id            String   @id @default(uuid())
+  referrerId    String
+  referrer      User     @relation("Referrer", fields: [referrerId], references: [id])
+  referredId    String   @unique
+  referredUser  User     @relation("ReferredUser", fields: [referredId], references: [id])
+  createdAt     DateTime @default(now())
+}
+
+model Chat {
+  id           String            @id @default(uuid())
+  participants ChatParticipant[]
+  messages     Message[]
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+}
+
+model ChatParticipant {
+  id        String   @id @default(uuid())
+  chatId    String
+  chat      Chat     @relation(fields: [chatId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  chatId    String
+  chat      Chat     @relation(fields: [chatId], references: [id])
+  senderId  String
+  sender    User     @relation(fields: [senderId], references: [id])
+  content   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  action    String
+  details   String?
+  ipAddress String?
+  createdAt DateTime @default(now())
+}
