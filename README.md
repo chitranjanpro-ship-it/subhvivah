@@ -1,9 +1,14 @@
 # Subhvivah - Professional Matrimonial Platform
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fchitranjanpro-ship-it%2Fsubhvivah)
+
 A high-performance, AI-powered matrimonial platform built with Next.js, Express, and FastAPI.
 
-## 🚀 Features
+## 🚀 One-Click Deployment
 
+If you cannot see the project on your Vercel dashboard, click the button above to manually trigger the import. This will clone the repository directly into your Vercel account.
+
+## 🛠️ Features
 - **AI-Driven Onboarding**: Two-way registration (Manual or AI Document Parsing).
 - **Admin Delegation System**: Role-based verticals (Verification, Support, Sales, Finance).
 - **Global Dynamic Theming**: Real-time theme changes with contrast-aware UI.
