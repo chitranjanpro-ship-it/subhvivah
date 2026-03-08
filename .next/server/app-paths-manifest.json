@@ -1,7 +1,27 @@
 {
+  "/_not-found": "app/_not-found.js",
+  "/api/admin/tasks/[id]/route": "app/api/admin/tasks/[id]/route.js",
+  "/api/admin/stats/route": "app/api/admin/stats/route.js",
+  "/api/admin/team/[id]/route": "app/api/admin/team/[id]/route.js",
+  "/api/admin/team/route": "app/api/admin/team/route.js",
+  "/api/admin/tasks/route": "app/api/admin/tasks/route.js",
+  "/api/admin/users/[id]/route": "app/api/admin/users/[id]/route.js",
+  "/api/admin/users/route": "app/api/admin/users/route.js",
+  "/api/admin/verification-requests/route": "app/api/admin/verification-requests/route.js",
+  "/api/auth/login/route": "app/api/auth/login/route.js",
+  "/api/ai/parse-biodata/route": "app/api/ai/parse-biodata/route.js",
+  "/api/auth/register/route": "app/api/auth/register/route.js",
+  "/api/auth/me/route": "app/api/auth/me/route.js",
+  "/api/profiles/route": "app/api/profiles/route.js",
   "/page": "app/page.js",
   "/login/page": "app/login/page.js",
+  "/register/page": "app/register/page.js",
   "/search/page": "app/search/page.js",
+  "/admin/team/page": "app/admin/team/page.js",
+  "/admin/verifications/page": "app/admin/verifications/page.js",
+  "/admin/tasks/page": "app/admin/tasks/page.js",
+  "/admin/settings/page": "app/admin/settings/page.js",
   "/admin/users/page": "app/admin/users/page.js",
-  "/admin/page": "app/admin/page.js"
+  "/admin/page": "app/admin/page.js",
+  "/dashboard/page": "app/dashboard/page.js"
 }
