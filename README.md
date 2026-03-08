@@ -4,15 +4,23 @@
 
 A high-performance, AI-powered matrimonial platform built with Next.js 14, Prisma, and PostgreSQL.
 
-## 🚀 One-Click Deployment
+## 🚀 Deployment Instructions
 
-This project is optimized for **Vercel**. To deploy:
+This project is optimized for **Vercel** as a single-project Next.js application.
 
-1.  Click the **"Deploy with Vercel"** button above.
-2.  Add the following **Environment Variables** in Vercel:
-    - `DATABASE_URL`: Your PostgreSQL connection string (Neon, Supabase, etc.)
-    - `JWT_SECRET`: A secure random string for authentication.
-3.  Vercel will automatically run `prisma generate` and `next build`.
+### **Option 1: One-Click Deploy (Recommended)**
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fchitranjanpro-ship-it%2Fsubhvivah)
+
+### **Option 2: Manual Import**
+1.  Go to [Vercel Dashboard](https://vercel.com/dashboard) and click **"Add New Project"**.
+2.  Import the **`subhvivah`** repository.
+3.  **Crucial Settings**:
+    -   **Framework Preset**: Select **`Next.js`**.
+    -   **Root Directory**: Leave it **empty** (or set to `.`). **Do NOT** set it to `apps/frontend`.
+4.  **Environment Variables**:
+    -   `DATABASE_URL`: Your PostgreSQL connection string.
+    -   `JWT_SECRET`: A secure random string.
+5.  Click **"Deploy"**. Vercel will automatically build the project and provide a single URL for everything.
 
 ## 🛠️ Features
 
