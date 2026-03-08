@@ -7,14 +7,11 @@
     "apps/*"
   ],
   "scripts": {
-    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
-    "dev:frontend": "npm run dev --workspace=apps/frontend",
-    "dev:backend": "npm run dev --workspace=apps/backend",
-    "dev:ai": "npm run dev --workspace=apps/ai-service",
-    "build:frontend": "npm run build --workspace=apps/frontend",
-    "build:backend": "npm run build --workspace=apps/backend",
-    "install:all": "npm install && npm install --workspace=apps/frontend && npm install --workspace=apps/backend",
-    "test": "npm test --workspaces"
+    "dev": "npm run dev --workspace=apps/frontend",
+    "build": "npm run build --workspace=apps/frontend",
+    "start": "npm run start --workspace=apps/frontend",
+    "install:all": "npm install && npm install --workspace=apps/frontend",
+    "postinstall": "npm run postinstall --workspace=apps/frontend"
   },
   "repository": {
     "type": "git",

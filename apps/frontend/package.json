@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "cypress open",
-    "test:headless": "cypress run"
+    "test:headless": "cypress run",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -23,7 +24,11 @@
     "@hookform/resolvers": "^3.3.4",
     "axios": "^1.6.7",
     "zustand": "^4.5.1",
-    "react-hot-toast": "^2.4.1"
+    "react-hot-toast": "^2.4.1",
+    "@prisma/client": "^5.10.2",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6"
   },
   "devDependencies": {
     "typescript": "^5.3.3",
@@ -35,6 +40,10 @@
     "autoprefixer": "^10.4.18",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.1.0",
-    "cypress": "^13.6.6"
+    "cypress": "^13.6.6",
+    "prisma": "^5.10.2",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cookie-parser": "^1.4.7"
   }
 }
