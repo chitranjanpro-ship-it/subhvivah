@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { comparePassword, generateToken } from '@/server/utils/auth';
+import { comparePassword, generateToken } from '@/lib/auth';
 import { z } from 'zod';
 
 const loginSchema = z.object({
