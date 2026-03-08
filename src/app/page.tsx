@@ -142,9 +142,12 @@ export default function LandingPage() {
                       </li>
                     ))}
                   </ul>
-                  <button className={`w-full py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all active:scale-[0.98] ${plan.recommended ? 'bg-primary-600 text-white shadow-xl shadow-primary-500/30 hover:bg-primary-700' : 'bg-gray-900 text-white hover:bg-gray-800 shadow-lg shadow-gray-900/10'}`}>
+                  <Link 
+                    href="/premium"
+                    className={`w-full py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all active:scale-[0.98] text-center flex items-center justify-center ${plan.recommended ? 'bg-primary-600 text-white shadow-xl shadow-primary-500/30 hover:bg-primary-700' : 'bg-gray-900 text-white hover:bg-gray-800 shadow-lg shadow-gray-900/10'}`}
+                  >
                     Choose {plan.title}
-                  </button>
+                  </Link>
                 </div>
               ))}
             </div>
