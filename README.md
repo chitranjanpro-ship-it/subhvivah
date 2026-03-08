@@ -1,73 +1,53 @@
 # 💍 Subhvivah - Professional Matrimonial Platform
 
----
-
-### **⚠️ IMPORTANT: DEPLOY TO VERCEL ⚠️**
-If you cannot see your project on Vercel, click the button below. This will automatically import the repository and set up the project for you.
-
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fchitranjanpro-ship-it%2Fsubhvivah)
 
----
-
-A high-performance, AI-powered matrimonial platform built with Next.js, Express, and FastAPI.
+A high-performance, AI-powered matrimonial platform built with Next.js 14, Prisma, and PostgreSQL.
 
 ## 🚀 One-Click Deployment
-If you cannot see the project on your Vercel dashboard:
+
+This project is optimized for **Vercel**. To deploy:
+
 1.  Click the **"Deploy with Vercel"** button above.
-2.  Login with your GitHub account.
-3.  Select the **`subhvivah`** repository.
-4.  Vercel will automatically detect the settings from your `vercel.json` files.
+2.  Add the following **Environment Variables** in Vercel:
+    - `DATABASE_URL`: Your PostgreSQL connection string (Neon, Supabase, etc.)
+    - `JWT_SECRET`: A secure random string for authentication.
+3.  Vercel will automatically run `prisma generate` and `next build`.
 
 ## 🛠️ Features
+
+- **Unified Architecture**: Single-project Next.js application with integrated API routes.
 - **AI-Driven Onboarding**: Two-way registration (Manual or AI Document Parsing).
 - **Admin Delegation System**: Role-based verticals (Verification, Support, Sales, Finance).
 - **Global Dynamic Theming**: Real-time theme changes with contrast-aware UI.
 - **Advanced User Management**: Full CRUD controls and profile verification workflows.
 - **Modern UI/UX**: Professional glassmorphism design with traditional Indian aesthetics.
 
-## 🛠️ Technology Stack
-
-- **Frontend**: Next.js 14 (App Router), Tailwind CSS, Zustand, Framer Motion.
-- **Backend**: Node.js, Express, Prisma (PostgreSQL).
-- **AI Service**: FastAPI, OCR (simulated).
-
-## 🌍 Deployment Guide
-
-### **Step 1: Database Setup**
-1. Create a PostgreSQL database on **Neon.tech**, **Supabase**, or **Aiven**.
-2. Copy your Connection String (`DATABASE_URL`).
-
-### **Step 2: Backend Deployment (Vercel)**
-1. Import this repository into Vercel.
-2. Set the **Root Directory** to `apps/backend`.
-3. Add these **Environment Variables**:
-   - `DATABASE_URL`: Your PostgreSQL connection string.
-   - `JWT_SECRET`: A secure random string.
-   - `NODE_ENV`: `production`
-
-### **Step 3: Frontend Deployment (Vercel)**
-1. Create a new project on Vercel and import the same repository.
-2. Set the **Root Directory** to `apps/frontend`.
-3. Add this **Environment Variable**:
-   - `NEXT_PUBLIC_API_URL`: The URL of your deployed backend.
-
 ## 📦 Local Development
 
-1. Install all dependencies:
-   ```bash
-   npm run install:all
-   ```
-2. Run the development environment:
-   ```bash
-   npm run dev
-   ```
+1.  Clone the repository.
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+3.  Set up your `.env` file with `DATABASE_URL` and `JWT_SECRET`.
+4.  Generate Prisma client:
+    ```bash
+    npx prisma generate
+    ```
+5.  Run the development server:
+    ```bash
+    npm run dev
+    ```
 
 ## 🏗️ Project Structure
 
-- `apps/frontend`: Next.js web application.
-- `apps/backend`: Express API and Prisma database logic.
-- `apps/ai-service`: Python-based AI parsing service.
-- `apps/mobile`: React Native mobile application.
+- `src/app/api`: Next.js API Route Handlers (Unified Backend).
+- `src/app/(auth)`: Authentication pages (Login/Register).
+- `src/app/admin`: Comprehensive Admin Dashboard.
+- `src/app/dashboard`: User-specific dashboard.
+- `prisma`: Database schema and migrations.
+- `src/server`: Legacy logic consolidated for unified processing.
 
 ---
 Built with precision by DevAstra AI.
