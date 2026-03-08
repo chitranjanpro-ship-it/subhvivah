@@ -33,6 +33,12 @@ export const useThemeStore = create<ThemeState>()(
           document.documentElement.style.setProperty('--primary-foreground', fg);
         }
       },
+      setBorderRadius: (radius) => {
+        set({ borderRadius: radius });
+        if (typeof window !== 'undefined') {
+          document.documentElement.style.setProperty('--radius', radius);
+        }
+      },
     }),
     {
       name: 'subhvivah-theme-storage',
