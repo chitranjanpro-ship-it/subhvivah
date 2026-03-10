@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
-import { useThemeStore } from "@/store/theme.store";
+import { useThemeStore, THEME_CONFIGS } from "@/store/theme.store";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,8 +16,16 @@ export default function RootLayout({
   const { mode, primaryColor } = useThemeStore();
 
   useEffect(() => {
-    // Apply mode
-    document.documentElement.classList.toggle('dark', mode === 'dark');
+    // Apply theme mode class to html element
+    document.documentElement.classList.remove('light', 'dark', 'glass', 'royal', 'traditional', 'sunset', 'forest', 'ocean', 'minimal', 'vintage');
+    document.documentElement.classList.add(mode);
+    
+    // Apply theme config variables
+    const config = THEME_CONFIGS[mode];
+    document.documentElement.style.setProperty('--background', config.bg);
+    document.documentElement.style.setProperty('--foreground', config.fg);
+    document.documentElement.style.setProperty('--card', config.card);
+    document.documentElement.style.setProperty('--border', config.border);
     
     // Apply primary color and calculated foreground
     document.documentElement.style.setProperty('--primary-color', primaryColor);
@@ -30,8 +38,8 @@ export default function RootLayout({
   }, [mode, primaryColor]);
 
   return (
-    <html lang="en" className={mode === 'dark' ? 'dark' : ''}>
-      <body className={`${inter.className} transition-colors duration-300`}>
+    <html lang="en" className={mode}>
+      <body className={`${inter.className} transition-all duration-300`}>
         {children}
         <Toaster position="top-center" />
       </body>

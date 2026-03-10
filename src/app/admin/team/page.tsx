@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import api from "@/lib/axios";
-import { UserPlus, Shield, Mail, BadgeCheck, Trash2, MoreVertical, X, Sparkles, Briefcase } from "lucide-react";
+import { UserPlus, Shield, Mail, BadgeCheck, Trash2, MoreVertical, X, Sparkles, Briefcase, Heart } from "lucide-react";
 import toast from "react-hot-toast";
 
 const verticals = ["VERIFICATION", "SUPPORT", "SALES", "CONTENT", "FINANCE"];
@@ -58,9 +58,11 @@ export default function AdminTeamPage() {
   };
 
   if (loading) return (
-    <div className="p-12 text-center">
-      <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-primary-600 border-t-transparent"></div>
-      <p className="mt-4 text-gray-500 font-bold">Loading team members...</p>
+    <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="flex flex-col items-center gap-4">
+        <Heart className="w-12 h-12 text-primary animate-pulse fill-primary" />
+        <p className="opacity-50 font-bold">Verifying Team...</p>
+      </div>
     </div>
   );
 
@@ -68,58 +70,44 @@ export default function AdminTeamPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Admin Team</h1>
-          <p className="text-gray-500 font-medium">Manage sub-admins and their assigned verticals.</p>
+          <h1 className="text-3xl font-black tracking-tight">Admin Team</h1>
+          <p className="opacity-50 font-medium">Manage sub-admins and their assigned verticals.</p>
         </div>
         <button 
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-2xl font-bold hover:bg-primary-700 transition-all shadow-lg shadow-primary-500/20 active:scale-95"
+          className="flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-2xl font-black uppercase tracking-widest text-xs hover:scale-105 transition-all shadow-lg shadow-primary/20 active:scale-95"
         >
-          <UserPlus className="w-5 h-5" />
+          <UserPlus className="w-4 h-4" />
           Add Member
         </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {team.map((member) => (
-          <div key={member.id} className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all group relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-primary-50 rounded-bl-[4rem] -z-10 group-hover:scale-110 transition-transform" />
+          <div key={member.id} className="card-style p-6 rounded-[2rem] shadow-sm hover:shadow-xl transition-all group relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-[4rem] -z-10 group-hover:scale-110 transition-transform" />
             
             <div className="flex justify-between items-start mb-6">
-              <div className="w-14 h-14 rounded-2xl bg-white shadow-lg flex items-center justify-center text-primary-600">
+              <div className="w-14 h-14 rounded-2xl bg-card shadow-lg flex items-center justify-center text-primary">
                 <Shield className="w-7 h-7" />
               </div>
               <button 
                 onClick={() => handleDelete(member.id)}
-                className="p-2 text-gray-300 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"
+                className="p-2 text-inherit opacity-20 hover:opacity-100 hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-all"
               >
                 <Trash2 className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-1">
-              <h3 className="text-lg font-black text-gray-900 truncate">{member.email}</h3>
+              <div className="font-black text-lg truncate">{member.email}</div>
               <div className="flex items-center gap-2">
-                <span className={`px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${
-                  member.role === 'ADMIN' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'
-                }`}>
+                <div className="px-3 py-1 bg-primary/10 text-primary rounded-full text-[10px] font-black uppercase tracking-widest">
+                  {member.vertical}
+                </div>
+                <div className="px-3 py-1 bg-inherit border border-inherit rounded-full text-[10px] font-black opacity-40 uppercase tracking-widest">
                   {member.role}
-                </span>
-                {member.vertical && (
-                  <span className="px-2 py-0.5 bg-orange-100 text-orange-700 rounded-full text-[10px] font-black uppercase tracking-wider">
-                    {member.vertical}
-                  </span>
-                )}
-              </div>
-            </div>
-
-            <div className="mt-6 pt-6 border-t border-gray-50 flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs font-bold text-gray-400">
-                <BadgeCheck className="w-4 h-4 text-green-500" />
-                Active Member
-              </div>
-              <div className="text-[10px] font-black text-gray-300 uppercase tracking-widest">
-                ID: {member.id.slice(0, 8)}
+                </div>
               </div>
             </div>
           </div>

@@ -5,11 +5,11 @@
 :root {
   --primary-color: #f43f5e;
   --primary-foreground: #ffffff;
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --card: #ffffff;
-  --card-foreground: #0f172a;
-  --border: #e2e8f0;
+  --background: #f0fdf4;
+  --foreground: #14532d;
+  --card: #dcfce7;
+  --card-foreground: #14532d;
+  --border: #bbf7d0;
 }
 
 .dark {
@@ -20,16 +20,87 @@
   --border: #334155;
 }
 
+.glass {
+  --background: #fff7ed;
+  --foreground: #7c2d12;
+  --card: rgba(255, 237, 213, 0.4);
+  --border: rgba(253, 186, 116, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.royal {
+  --background: #1e1b4b;
+  --foreground: #eef2ff;
+  --card: #312e81;
+  --border: #4338ca;
+}
+
+.traditional {
+  --background: #450a0a;
+  --foreground: #fef2f2;
+  --card: #7f1d1d;
+  --border: #991b1b;
+}
+
+.sunset {
+  --background: #2d1b33;
+  --foreground: #ffd6cc;
+  --card: #4a2c50;
+  --border: #633b6d;
+}
+
+.forest {
+  --background: #052e16;
+  --foreground: #dcfce7;
+  --card: #14532d;
+  --border: #166534;
+}
+
+.ocean {
+  --background: #082f49;
+  --foreground: #e0f2fe;
+  --card: #0c4a6e;
+  --border: #075985;
+}
+
+.minimal {
+  --background: #171717;
+  --foreground: #f5f5f5;
+  --card: #262626;
+  --border: #404040;
+}
+
+.vintage {
+  --background: #2d241e;
+  --foreground: #ede0d4;
+  --card: #3c2f2f;
+  --border: #4b3832;
+}
+
 @layer base {
+  * {
+    border-color: var(--border);
+  }
+  
   body {
     background-color: var(--background);
     color: var(--foreground);
-    @apply transition-colors duration-300 antialiased;
+    @apply transition-all duration-300 antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  .card-style {
+    background-color: var(--card);
+    border: 1px solid var(--border);
     color: var(--foreground);
-    @apply font-bold;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, span, div, label {
+    @apply transition-colors;
+  }
+  
+  /* Ensure all text uses foreground unless specified otherwise */
+  body, p, span, label, input, textarea, select {
+    color: var(--foreground);
   }
 }
 

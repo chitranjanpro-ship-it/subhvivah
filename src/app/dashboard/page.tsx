@@ -23,79 +23,82 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="space-y-8">
-      <div className="bg-gradient-to-r from-primary-600 to-primary-500 rounded-3xl p-10 text-white shadow-xl">
-        <h1 className="text-3xl font-bold mb-2">Hello, {user?.email.split('@')[0]}!</h1>
-        <p className="text-primary-50 text-lg opacity-90">Find your perfect match today.</p>
-        <div className="mt-8 flex gap-4">
-          <Link href="/search" className="bg-white text-primary-600 px-6 py-3 rounded-xl font-bold hover:bg-primary-50 transition-colors shadow-sm">
-            Search Now
-          </Link>
-          <Link href="/profile/edit" className="bg-primary-700/30 backdrop-blur-sm border border-primary-400/30 text-white px-6 py-3 rounded-xl font-bold hover:bg-primary-700/50 transition-colors">
-            Edit Profile
-          </Link>
+    <div className="space-y-8 pb-20">
+      <div className="bg-primary rounded-3xl p-10 text-primary-foreground shadow-xl shadow-primary/20 relative overflow-hidden group">
+        <div className="relative z-10">
+          <h1 className="text-4xl font-black mb-2 tracking-tight">Hello, {user?.email.split('@')[0]}!</h1>
+          <p className="text-primary-foreground opacity-80 text-lg font-bold">Find your perfect match today.</p>
+          <div className="mt-10 flex flex-wrap gap-4">
+            <Link href="/search" className="bg-card text-primary px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:scale-105 transition-all shadow-lg shadow-black/10">
+              Search Now
+            </Link>
+            <Link href="/profile/edit" className="bg-primary-foreground/20 backdrop-blur-md border border-primary-foreground/30 text-primary-foreground px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-primary-foreground/30 transition-all">
+              Edit Profile
+            </Link>
+          </div>
         </div>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-card/10 rounded-full blur-3xl -mr-32 -mt-32 group-hover:bg-card/20 transition-all duration-700" />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
-          <div className="p-3 bg-blue-50 text-blue-600 rounded-xl">
-            <Search className="w-6 h-6" />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="card-style p-8 rounded-[2.5rem] shadow-sm flex items-center gap-6 group hover:shadow-xl transition-all">
+          <div className="p-4 bg-blue-500/10 text-blue-500 rounded-2xl group-hover:scale-110 transition-transform">
+            <Search className="w-8 h-8" />
           </div>
           <div>
-            <div className="font-bold text-gray-900">New Matches</div>
-            <div className="text-gray-500 text-sm">12 new today</div>
+            <div className="font-black text-inherit text-xl tracking-tight">New Matches</div>
+            <div className="text-inherit opacity-40 text-xs font-black uppercase tracking-widest">12 new today</div>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
-          <div className="p-3 bg-pink-50 text-pink-600 rounded-xl">
-            <Heart className="w-6 h-6" />
+        <div className="card-style p-8 rounded-[2.5rem] shadow-sm flex items-center gap-6 group hover:shadow-xl transition-all">
+          <div className="p-4 bg-primary/10 text-primary rounded-2xl group-hover:scale-110 transition-transform">
+            <Heart className="w-8 h-8" />
           </div>
           <div>
-            <div className="font-bold text-gray-900">Likes Received</div>
-            <div className="text-gray-500 text-sm">5 pending</div>
+            <div className="font-black text-inherit text-xl tracking-tight">Likes Received</div>
+            <div className="text-inherit opacity-40 text-xs font-black uppercase tracking-widest">5 pending</div>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
-          <div className="p-3 bg-green-50 text-green-600 rounded-xl">
-            <ShieldCheck className="w-6 h-6" />
+        <div className="card-style p-8 rounded-[2.5rem] shadow-sm flex items-center gap-6 group hover:shadow-xl transition-all">
+          <div className="p-4 bg-green-500/10 text-green-500 rounded-2xl group-hover:scale-110 transition-transform">
+            <ShieldCheck className="w-8 h-8" />
           </div>
           <div>
-            <div className="font-bold text-gray-900">Verification</div>
-            <div className="text-gray-500 text-sm">Verified</div>
+            <div className="font-black text-inherit text-xl tracking-tight">Verification</div>
+            <div className="text-inherit opacity-40 text-xs font-black uppercase tracking-widest">Verified</div>
           </div>
         </div>
       </div>
 
       <section>
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">Recommended for You</h2>
-          <Link href="/search" className="text-primary-600 font-medium hover:underline">View All</Link>
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl font-black text-inherit tracking-tight leading-none">Recommended for You</h2>
+          <Link href="/search" className="text-primary font-black text-xs uppercase tracking-widest hover:underline">View All</Link>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {recommendations.length > 0 ? (
             recommendations.map((profile, i) => (
-              <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 group">
-                <div className="aspect-[3/4] bg-gray-200 relative">
+              <div key={i} className="card-style rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all group border border-inherit">
+                <div className="aspect-[3/4] bg-primary/5 relative overflow-hidden">
                   {profile.photos?.[0]?.url ? (
-                    <img src={profile.photos[0].url} alt={profile.name} className="w-full h-full object-cover" />
+                    <img src={profile.photos[0].url} alt={profile.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400">No Photo</div>
+                    <div className="w-full h-full flex items-center justify-center text-inherit opacity-20">No Photo</div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                    <button className="w-full bg-primary-600 text-white py-2 rounded-lg font-bold">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end p-6">
+                    <button className="w-full bg-primary text-primary-foreground py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-xl shadow-primary/20">
                       View Profile
                     </button>
                   </div>
                 </div>
-                <div className="p-4">
-                  <div className="font-bold text-gray-900">{profile.name}, {profile.age}</div>
-                  <div className="text-gray-500 text-sm">{profile.religion}, {profile.location}</div>
+                <div className="p-6">
+                  <div className="font-black text-inherit text-lg tracking-tight mb-1">{profile.name}, {profile.age}</div>
+                  <div className="text-inherit opacity-40 text-[10px] font-black uppercase tracking-widest">{profile.religion}, {profile.location}</div>
                 </div>
               </div>
             ))
           ) : (
-            <div className="col-span-full py-20 text-center text-gray-500 border-2 border-dashed border-gray-100 rounded-2xl">
+            <div className="col-span-full py-24 text-center text-inherit opacity-40 border-4 border-dashed border-inherit rounded-[3rem] font-black uppercase tracking-widest text-xs">
               No recommendations found. Complete your profile to get matches.
             </div>
           )}

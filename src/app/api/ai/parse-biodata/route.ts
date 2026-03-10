@@ -4,10 +4,22 @@ import { z } from 'zod';
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
-    const file = formData.get('file');
+    const file = formData.get('file') || formData.get('biodata');
 
-    if (!file) {
-      return NextResponse.json({ message: 'No file uploaded' }, { status: 400 });
+    if (!file || !(file instanceof File)) {
+      return NextResponse.json({ message: 'No valid file uploaded' }, { status: 400 });
+    }
+
+    // Validate file type
+    const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png'];
+    if (!allowedTypes.includes(file.type)) {
+      return NextResponse.json({ message: 'Unsupported file format' }, { status: 400 });
+    }
+
+    // Validate file size (e.g., 5MB limit)
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      return NextResponse.json({ message: 'File size too large (max 5MB)' }, { status: 400 });
     }
 
     // Simulate AI processing delay

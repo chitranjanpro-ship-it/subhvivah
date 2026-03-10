@@ -2,30 +2,38 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Heart, Shield, Users, Award, CheckCircle, Moon, Sun, Monitor, ArrowRight } from "lucide-react";
+import { Heart, Shield, Users, Award, CheckCircle, Moon, Sun, Monitor, ArrowRight, Sparkles, Crown, Flower, Sunset, Trees, Waves, Zap, History } from "lucide-react";
 import { useEffect } from "react";
-import { useThemeStore } from "@/store/theme.store";
+import { useThemeStore, ThemeMode } from "@/store/theme.store";
 import { useAuthStore } from "@/store/auth.store";
 
 const ThemeToggle = () => {
   const { mode, setMode } = useThemeStore();
-  
+  const themes: { mode: ThemeMode; icon: any }[] = [
+    { mode: 'light', icon: Sun },
+    { mode: 'dark', icon: Moon },
+    { mode: 'glass', icon: Sparkles },
+    { mode: 'royal', icon: Crown },
+    { mode: 'traditional', icon: Flower },
+    { mode: 'sunset', icon: Sunset },
+    { mode: 'forest', icon: Trees },
+    { mode: 'ocean', icon: Waves },
+    { mode: 'minimal', icon: Zap },
+    { mode: 'vintage', icon: History },
+  ];
+
   return (
-    <div className="flex bg-gray-100 p-1 rounded-full border border-gray-200">
-      <button 
-        type="button"
-        onClick={() => setMode('light')}
-        className={`p-1.5 rounded-full transition-all ${mode === 'light' ? 'bg-white shadow-sm text-primary-600' : 'text-gray-400 hover:text-gray-600'}`}
-      >
-        <Sun className="w-4 h-4" />
-      </button>
-      <button 
-        type="button"
-        onClick={() => setMode('dark')}
-        className={`p-1.5 rounded-full transition-all ${mode === 'dark' ? 'bg-white shadow-sm text-primary-600' : 'text-gray-400 hover:text-gray-600'}`}
-      >
-        <Moon className="w-4 h-4" />
-      </button>
+    <div className="flex bg-primary/5 p-1 rounded-xl border border-primary/10">
+      {themes.map((t) => (
+        <button
+          key={t.mode}
+          onClick={() => setMode(t.mode)}
+          className={`p-1.5 rounded-lg transition-all ${mode === t.mode ? 'bg-primary text-primary-foreground shadow-sm' : 'text-primary opacity-40 hover:opacity-100'}`}
+          title={t.mode}
+        >
+          <t.icon className="w-3.5 h-3.5" />
+        </button>
+      ))}
     </div>
   );
 };
@@ -36,22 +44,22 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <header className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+    <div className="flex flex-col min-h-screen bg-inherit transition-colors duration-300">
+      <header className="fixed top-0 w-full z-50 card-style border-b border-inherit backdrop-blur-md">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold text-primary-600 flex items-center gap-2">
-            <Heart className="fill-primary-600" />
+          <Link href="/" className="text-2xl font-bold text-primary flex items-center gap-2">
+            <Heart className="fill-primary" />
             <span>Subhvivah</span>
           </Link>
           <nav className="hidden md:flex items-center gap-8">
-            <Link href="#features" className="text-gray-600 hover:text-primary-600 transition-colors font-medium">Features</Link>
-            <Link href="#premium" className="text-gray-600 hover:text-primary-600 transition-colors font-medium">Premium</Link>
-            <Link href="#about" className="text-gray-600 hover:text-primary-600 transition-colors font-medium">About Us</Link>
+            <Link href="#features" className="text-inherit opacity-70 hover:opacity-100 transition-opacity font-medium">Features</Link>
+            <Link href="#premium" className="text-inherit opacity-70 hover:opacity-100 transition-opacity font-medium">Premium</Link>
+            <Link href="/about" className="text-inherit opacity-70 hover:opacity-100 transition-opacity font-medium">About Us</Link>
           </nav>
           <div className="flex items-center gap-4">
             <ThemeToggle />
-            <Link href="/login" className="text-gray-600 hover:text-primary-600 font-medium">Login</Link>
-            <Link href="/register" className="bg-primary-600 text-white px-6 py-2 rounded-full font-medium hover:bg-primary-700 transition-colors">
+            <Link href="/login" className="text-inherit opacity-70 hover:opacity-100 font-medium transition-opacity">Login</Link>
+            <Link href="/register" className="bg-primary text-primary-foreground px-6 py-2 rounded-full font-medium hover:scale-105 transition-all">
               Join Free
             </Link>
           </div>
@@ -59,29 +67,33 @@ export default function LandingPage() {
       </header>
 
       <main className="flex-grow pt-16">
-        <section className="relative py-20 lg:py-32 overflow-hidden bg-gradient-to-b from-primary-50 to-white">
+        <section className="relative py-20 lg:py-32 overflow-hidden bg-inherit">
+          <div className="absolute top-0 left-0 w-full h-full -z-10 opacity-10">
+            <div className="absolute top-[-10%] right-[-5%] w-[50%] h-[50%] bg-primary rounded-full blur-3xl" />
+            <div className="absolute bottom-[-10%] left-[-5%] w-[50%] h-[50%] bg-primary rounded-full blur-3xl" />
+          </div>
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-3xl mx-auto text-center">
               <motion.h1 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-4xl lg:text-6xl font-extrabold text-gray-900 mb-6"
+                className="text-4xl lg:text-6xl font-extrabold text-inherit mb-6 tracking-tight leading-tight"
               >
-                Find Your <span className="text-primary-600">Soulmate</span> with Tradition & Trust
+                Find Your <span className="text-primary">Soulmate</span> with Tradition & Trust
               </motion.h1>
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-xl text-gray-600 mb-10"
+                className="text-xl text-inherit opacity-70 mb-10"
               >
                 The most serious and family-oriented matrimonial platform for those who believe in lifelong companionship.
               </motion.p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/register" className="w-full sm:w-auto bg-primary-600 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-primary-700 transition-all transform hover:scale-105 shadow-lg">
+                <Link href="/register" className="w-full sm:w-auto bg-primary text-primary-foreground px-10 py-5 rounded-2xl text-lg font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl shadow-primary/20">
                   Create Your Profile
                 </Link>
-                <Link href="/search" className="w-full sm:w-auto bg-white text-gray-900 border-2 border-gray-200 px-8 py-4 rounded-full text-lg font-bold hover:border-primary-600 hover:text-primary-600 transition-all">
+                <Link href="/search" className="w-full sm:w-auto card-style border-2 border-inherit px-10 py-5 rounded-2xl text-lg font-black uppercase tracking-widest hover:border-primary hover:text-primary transition-all">
                   Browse Profiles
                 </Link>
               </div>
@@ -89,11 +101,11 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="features" className="py-24">
+        <section id="features" className="py-24 bg-inherit">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Why Choose Subhvivah?</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">We prioritize your safety and family values above all else.</p>
+              <h2 className="text-3xl lg:text-4xl font-black text-inherit mb-4 tracking-tight">Why Choose Subhvivah?</h2>
+              <p className="text-inherit opacity-60 max-w-2xl mx-auto font-medium">We prioritize your safety and family values above all else.</p>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
               {[
@@ -101,42 +113,42 @@ export default function LandingPage() {
                 { icon: Users, title: "Family-Oriented", desc: "Designed for serious marriage matchmaking with multi-role management for parents and relatives." },
                 { icon: Award, title: "Premium Experience", desc: "Unlock unlimited chats, contact reveals, and profile boosts with our premium plans." }
               ].map((feature, i) => (
-                <div key={i} className="p-8 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-14 h-14 bg-primary-100 rounded-xl flex items-center justify-center mb-6">
-                    <Shield className="w-8 h-8 text-primary-600" />
+                <div key={i} className="p-10 rounded-[2.5rem] card-style border border-inherit shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all group">
+                  <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                    <feature.icon className="w-8 h-8 text-primary" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                  <p className="text-gray-600">{feature.desc}</p>
+                  <h3 className="text-2xl font-black text-inherit mb-4 tracking-tight">{feature.title}</h3>
+                  <p className="text-inherit opacity-60 leading-relaxed">{feature.desc}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section id="premium" className="py-24">
+        <section id="premium" className="py-24 bg-inherit">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 tracking-tight">Premium Membership</h2>
-            <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">Get exclusive benefits and find your match faster with our premium plans.</p>
+            <h2 className="text-3xl lg:text-4xl font-black text-inherit mb-6 tracking-tight">Premium Membership</h2>
+            <p className="text-lg text-inherit opacity-60 mb-12 max-w-2xl mx-auto font-medium">Get exclusive benefits and find your match faster with our premium plans.</p>
             <div className="grid md:grid-cols-3 gap-8">
               {[
                 { title: "Free", price: "0", features: ["Limited Chat", "Search Profiles", "Basic Filters"] },
                 { title: "Gold", price: "999", features: ["Unlimited Chat", "Contact Reveal", "Profile Boost", "Verified Badge"], recommended: true },
                 { title: "Diamond", price: "1999", features: ["Personalized Matchmaker", "Priority Support", "Featured Profile", "Unlimited Everything"] }
               ].map((plan, i) => (
-                <div key={i} className={`p-8 rounded-[2rem] border ${plan.recommended ? 'border-primary-600 shadow-2xl shadow-primary-500/20 scale-105 relative z-10 bg-white' : 'border-gray-100 bg-white/50 backdrop-blur-sm'} transition-all hover:translate-y-[-4px]`}>
-                  {plan.recommended && <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary-600 text-white px-6 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-primary-500/40">Recommended</div>}
-                  <h3 className="text-2xl font-black mb-4 text-gray-900 tracking-tight">{plan.title}</h3>
+                <div key={i} className={`p-10 rounded-[2.5rem] card-style border-2 transition-all hover:shadow-2xl flex flex-col ${plan.recommended ? 'border-primary shadow-xl scale-105 relative z-10' : 'border-inherit opacity-80'}`}>
+                  {plan.recommended && <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-6 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-primary/40">Recommended</div>}
+                  <h3 className="text-2xl font-black mb-4 text-inherit tracking-tight">{plan.title}</h3>
                   <div className="flex items-baseline justify-center gap-1 mb-8">
-                    <span className="text-sm font-bold text-gray-400">₹</span>
-                    <span className="text-5xl font-black text-gray-900 tracking-tighter">{plan.price}</span>
-                    <span className="text-sm font-bold text-gray-400">/mo</span>
+                    <span className="text-sm font-bold opacity-40">₹</span>
+                    <span className="text-5xl font-black text-inherit tracking-tighter">{plan.price}</span>
+                    <span className="text-sm font-bold opacity-40">/mo</span>
                   </div>
-                  <div className="h-px w-full bg-gray-100 mb-8" />
-                  <ul className="space-y-5 mb-10 text-left">
+                  <div className="h-px w-full bg-inherit opacity-10 mb-8" />
+                  <ul className="space-y-5 mb-10 text-left flex-grow">
                     {plan.features.map((feature, j) => (
-                      <li key={j} className="flex items-center gap-3 text-sm text-gray-600 font-bold">
-                        <div className="w-5 h-5 rounded-full bg-primary-50 flex items-center justify-center flex-shrink-0">
-                          <CheckCircle className="w-3 h-3 text-primary-600" />
+                      <li key={j} className="flex items-center gap-3 text-sm text-inherit opacity-70 font-bold">
+                        <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          <CheckCircle className="w-3 h-3 text-primary" />
                         </div>
                         {feature}
                       </li>
@@ -144,7 +156,7 @@ export default function LandingPage() {
                   </ul>
                   <Link 
                     href="/premium"
-                    className={`w-full py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all active:scale-[0.98] text-center flex items-center justify-center ${plan.recommended ? 'bg-primary-600 text-white shadow-xl shadow-primary-500/30 hover:bg-primary-700' : 'bg-gray-900 text-white hover:bg-gray-800 shadow-lg shadow-gray-900/10'}`}
+                    className={`w-full py-5 rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-[0.98] text-center flex items-center justify-center ${plan.recommended ? 'bg-primary text-primary-foreground shadow-xl shadow-primary/20 hover:scale-105' : 'bg-inherit border-2 border-inherit hover:border-primary hover:text-primary shadow-lg shadow-black/5'}`}
                   >
                     Choose {plan.title}
                   </Link>
@@ -154,29 +166,29 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="about" className="py-24 bg-white relative overflow-hidden">
+        <section id="about" className="py-24 bg-inherit relative overflow-hidden">
           {/* Decorative Elements */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-primary-50 rounded-full blur-3xl opacity-30 -translate-y-1/2 translate-x-1/2" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary-50 rounded-full blur-3xl opacity-30 translate-y-1/2 -translate-x-1/2" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary opacity-5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
           <div className="container mx-auto px-4 relative z-10">
             <div className="grid lg:grid-cols-2 gap-20 items-center">
               <div className="relative group">
-                <div className="aspect-[4/5] bg-primary-100 rounded-[3rem] overflow-hidden shadow-2xl relative transition-transform duration-700 group-hover:scale-[1.02]">
+                <div className="aspect-[4/5] bg-primary/5 rounded-[3rem] overflow-hidden shadow-2xl relative transition-transform duration-700 group-hover:scale-[1.02] border border-primary/10">
                   <img 
                     src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1000&auto=format&fit=crop" 
                     alt="Traditional Indian Bride and Groom" 
                     className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary-900/40 via-transparent to-transparent opacity-60" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent opacity-60" />
                   
                   {/* Floating Stats */}
-                  <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-[2rem] shadow-2xl border border-gray-100 hidden md:block animate-bounce-slow">
-                    <div className="text-4xl font-black text-primary-600 mb-1 tracking-tighter">10k+</div>
-                    <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Happy Marriages</div>
+                  <div className="absolute -bottom-6 -right-6 card-style p-6 rounded-[2rem] shadow-2xl border border-primary/10 hidden md:block">
+                    <div className="text-4xl font-black text-primary mb-1 tracking-tighter">10k+</div>
+                    <div className="text-[10px] font-black opacity-40 uppercase tracking-widest">Happy Marriages</div>
                   </div>
                   
-                  <div className="absolute top-8 left-8 bg-white/20 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/30 hidden md:block">
+                  <div className="absolute top-8 left-8 bg-primary/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/20 hidden md:block">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                       <span className="text-xs font-black text-white uppercase tracking-widest">Verified Profiles</span>
@@ -184,8 +196,8 @@ export default function LandingPage() {
                   </div>
                 </div>
                 
-                {/* Decorative border */}
-                <div className="absolute -inset-4 border-2 border-primary-200 rounded-[3.5rem] -z-10 translate-x-4 translate-y-4 opacity-50" />
+                {/* Decorative background shape */}
+                <div className="absolute -inset-4 bg-primary/5 rounded-[3.5rem] -z-10 translate-x-4 translate-y-4" />
               </div>
 
               <motion.div
@@ -195,17 +207,17 @@ export default function LandingPage() {
                 className="space-y-8"
               >
                 <div className="space-y-4">
-                  <div className="inline-block px-4 py-1.5 bg-primary-50 rounded-full text-[10px] font-black text-primary-600 uppercase tracking-widest">Our Story</div>
-                  <h2 className="text-4xl lg:text-5xl font-black text-gray-900 tracking-tight leading-[1.1]">
-                    Preserving Traditions in a <span className="text-primary-600">Digital World</span>
+                  <div className="inline-block px-4 py-1.5 bg-primary/10 rounded-full text-[10px] font-black text-primary uppercase tracking-widest">Our Story</div>
+                  <h2 className="text-4xl lg:text-5xl font-black text-inherit tracking-tight leading-[1.1]">
+                    Preserving Traditions in a <span className="text-primary">Digital World</span>
                   </h2>
                 </div>
 
                 <div className="space-y-6">
-                  <p className="text-lg text-gray-600 leading-relaxed font-medium">
-                    Founded in the heart of Jamshedpur, <span className="text-primary-600 font-bold">Subhvivah</span> was born from a simple yet profound vision: to bring the authenticity of traditional Indian matchmaking to the convenience of the modern age.
+                  <p className="text-lg text-inherit opacity-70 leading-relaxed font-medium">
+                    Founded in the heart of Jamshedpur, <span className="text-primary font-bold">Subhvivah</span> was born from a simple yet profound vision: to bring the authenticity of traditional Indian matchmaking to the convenience of the modern age.
                   </p>
-                  <p className="text-lg text-gray-600 leading-relaxed font-medium">
+                  <p className="text-lg text-inherit opacity-70 leading-relaxed font-medium">
                     We understand that marriage in India isn't just a union of two individuals, but a coming together of two families. That's why we've built a platform that respects these values while utilizing cutting-edge AI to ensure your safety and success.
                   </p>
                 </div>
@@ -217,20 +229,20 @@ export default function LandingPage() {
                     { title: "Privacy First", desc: "Secure communication" },
                     { title: "Family Focused", desc: "Multi-role support" }
                   ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-4 p-4 rounded-2xl bg-gray-50/50 hover:bg-white hover:shadow-lg transition-all border border-transparent hover:border-gray-100 group">
-                      <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-primary-600 group-hover:scale-110 transition-transform">
+                    <div key={i} className="flex items-start gap-4 p-5 rounded-2xl card-style border border-inherit hover:border-primary transition-all group">
+                      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
                         <CheckCircle className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="font-black text-gray-900 text-sm tracking-tight">{item.title}</div>
-                        <div className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">{item.desc}</div>
+                        <div className="font-black text-inherit text-sm tracking-tight">{item.title}</div>
+                        <div className="text-[10px] font-bold opacity-40 uppercase tracking-tighter">{item.desc}</div>
                       </div>
                     </div>
                   ))}
                 </div>
 
                 <div className="pt-4">
-                  <Link href="/register" className="inline-flex items-center gap-3 bg-gray-900 text-white px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-gray-800 transition-all shadow-xl shadow-gray-900/20 active:scale-[0.98]">
+                  <Link href="/register" className="inline-flex items-center gap-3 bg-primary text-primary-foreground px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest hover:scale-105 transition-all shadow-xl shadow-primary/20 active:scale-[0.98]">
                     Start Your Journey
                     <ArrowRight className="w-5 h-5" />
                   </Link>
@@ -240,58 +252,56 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="bg-primary-600 py-16 text-white">
-          <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-bold mb-2">50k+</div>
-              <div className="text-primary-100">Active Profiles</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">10k+</div>
-              <div className="text-primary-100">Successful Matches</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">100%</div>
-              <div className="text-primary-100">AI Verified</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">24/7</div>
-              <div className="text-primary-100">Support</div>
-            </div>
+        <section className="bg-primary py-20 text-primary-foreground relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-full opacity-10">
+            <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+          </div>
+          <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-12 text-center relative z-10">
+            {[
+              { label: "Active Profiles", value: "50k+" },
+              { label: "Successful Matches", value: "10k+" },
+              { label: "AI Verified", value: "100%" },
+              { label: "Support", value: "24/7" }
+            ].map((stat, i) => (
+              <div key={i} className="space-y-2">
+                <div className="text-5xl font-black tracking-tighter">{stat.value}</div>
+                <div className="text-xs font-black uppercase tracking-widest opacity-80">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </section>
       </main>
 
-      <footer className="bg-gray-50 pt-16 pb-8 border-t border-gray-200">
+      <footer className="card-style border-t border-inherit pt-20 pb-10">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-12 mb-12">
+          <div className="grid md:grid-cols-4 gap-16 mb-20">
             <div className="col-span-1 md:col-span-2">
-              <Link href="/" className="text-2xl font-bold text-primary-600 flex items-center gap-2 mb-6">
-                <Heart className="fill-primary-600" />
-                <span>Subhvivah</span>
+              <Link href="/" className="text-3xl font-black text-primary flex items-center gap-3 mb-8">
+                <Heart className="fill-primary w-8 h-8" />
+                <span>SUBHVIVAH</span>
               </Link>
-              <p className="text-gray-600 mb-6 max-w-sm">
+              <p className="text-lg text-inherit opacity-60 mb-8 max-w-md leading-relaxed">
                 Subhvivah is Jamshedpur's leading matrimonial platform, committed to bringing families together through secure and traditional matchmaking.
               </p>
             </div>
             <div>
-              <h4 className="font-bold text-gray-900 mb-6">Quick Links</h4>
+              <h4 className="font-black text-inherit uppercase tracking-widest text-xs mb-8">Quick Links</h4>
               <ul className="space-y-4">
-                <li><Link href="/search" className="text-gray-600 hover:text-primary-600">Search Profiles</Link></li>
-                <li><Link href="/premium" className="text-gray-600 hover:text-primary-600">Premium Plans</Link></li>
-                <li><Link href="/about" className="text-gray-600 hover:text-primary-600">About Us</Link></li>
+                <li><Link href="/search" className="text-inherit opacity-60 hover:text-primary transition-colors font-bold">Search Profiles</Link></li>
+                <li><Link href="/premium" className="text-inherit opacity-60 hover:text-primary transition-colors font-bold">Premium Plans</Link></li>
+                <li><Link href="/about" className="text-inherit opacity-60 hover:text-primary transition-colors font-bold">About Us</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-gray-900 mb-6">Support</h4>
+              <h4 className="font-black text-inherit uppercase tracking-widest text-xs mb-8">Legal & Support</h4>
               <ul className="space-y-4">
-                <li><Link href="/contact" className="text-gray-600 hover:text-primary-600">Contact Us</Link></li>
-                <li><Link href="/privacy" className="text-gray-600 hover:text-primary-600">Privacy Policy</Link></li>
-                <li><Link href="/terms" className="text-gray-600 hover:text-primary-600">Terms of Service</Link></li>
+                <li><Link href="/contact" className="text-inherit opacity-60 hover:text-primary transition-colors font-bold">Contact Us</Link></li>
+                <li><Link href="/privacy" className="text-inherit opacity-60 hover:text-primary transition-colors font-bold">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="text-inherit opacity-60 hover:text-primary transition-colors font-bold">Terms of Service</Link></li>
               </ul>
             </div>
           </div>
-          <div className="pt-8 border-t border-gray-200 text-center text-gray-500 text-sm">
+          <div className="pt-10 border-t border-inherit text-center text-[10px] font-black opacity-30 uppercase tracking-[0.2em]">
             © 2026 S & S Software Development and Engineering, Jamshedpur, India. All rights reserved.
           </div>
         </div>

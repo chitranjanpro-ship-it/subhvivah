@@ -13,6 +13,7 @@ async function main() {
       email: 'admin@subhvivah.com',
       password: hashedPassword,
       role: 'ADMIN',
+      vertical: 'VERIFICATION',
       isVerified: true,
     },
   });

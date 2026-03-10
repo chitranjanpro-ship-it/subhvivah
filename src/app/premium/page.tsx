@@ -68,17 +68,17 @@ export default function PremiumPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-20">
+    <div className="min-h-screen transition-all duration-300 py-20 bg-inherit">
       <div className="container mx-auto px-4">
-        <Link href="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-primary-600 transition-colors mb-12 font-bold group">
+        <Link href="/" className="inline-flex items-center gap-2 opacity-50 hover:text-primary-600 transition-colors mb-12 font-bold group">
           <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
           Back to Home
         </Link>
 
         <div className="text-center max-w-3xl mx-auto mb-16">
           <Heart className="w-12 h-12 text-primary-600 mx-auto mb-6 fill-primary-600" />
-          <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight">Upgrade Your Journey</h1>
-          <p className="text-xl text-gray-600 font-medium">Find your soulmate faster with Subhvivah Premium features.</p>
+          <h1 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">Upgrade Your Journey</h1>
+          <p className="text-xl opacity-60 font-medium">Find your soulmate faster with Subhvivah Premium features.</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -88,15 +88,15 @@ export default function PremiumPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className={`p-10 rounded-[2.5rem] border ${plan.recommended ? 'border-primary-600 shadow-2xl shadow-primary-500/20 scale-105 relative z-10 bg-white' : 'border-gray-100 bg-white/80 backdrop-blur-xl'} transition-all hover:translate-y-[-8px]`}
+              className={`p-10 rounded-[2.5rem] border ${plan.recommended ? 'border-primary-600 shadow-2xl shadow-primary-500/20 scale-105 relative z-10 bg-card' : 'card-style'} transition-all hover:translate-y-[-8px]`}
             >
               {plan.recommended && (
-                <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-primary-600 text-white px-8 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] shadow-xl shadow-primary-500/40">
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-8 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] shadow-xl shadow-primary/40">
                   Best Value
                 </div>
               )}
               
-              <h3 className="text-2xl font-black mb-6 text-gray-900 tracking-tight">{plan.name}</h3>
+              <h3 className="text-2xl font-black mb-6 tracking-tight">{plan.name}</h3>
               
               <div className="flex items-baseline gap-1 mb-10">
                 <span className="text-lg font-bold text-gray-400">₹</span>

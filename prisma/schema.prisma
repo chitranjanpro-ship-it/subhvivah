@@ -75,6 +75,7 @@ model User {
   
   assignedTasks Task[]     @relation("AssignedTo")
   createdTasks  Task[]     @relation("CreatedBy")
+  moderationEvents ChatModerationEvent[]
 }
 
 model Task {
@@ -118,7 +119,8 @@ model Profile {
   userType          UserType
   status            ProfileStatus @default(PENDING)
   riskScore         Float         @default(0.0)
-  
+  trustScore        Float         @default(50.0) // Initial trust score
+
   // Basic Details
   name              String
   age               Int
@@ -198,10 +200,45 @@ model Referral {
   createdAt     DateTime @default(now())
 }
 
+model MessageSuggestion {
+  id        String   @id @default(uuid())
+  category  String   // STARTER, ICEBREAKER, REPLY, FOLLOW_UP
+  content   String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model ConversationMetric {
+  id                String   @id @default(uuid())
+  chatId            String   @unique
+  chat              Chat     @relation(fields: [chatId], references: [id])
+  responseRate      Float    @default(0.0)
+  avgReplyTime      Int      @default(0) // in minutes
+  isSuccessful      Boolean  @default(false)
+  mutualInterest    Boolean  @default(false)
+  lastActivityAt    DateTime @default(now())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model ChatModerationEvent {
+  id          String   @id @default(uuid())
+  chatId      String
+  chat        Chat     @relation(fields: [chatId], references: [id])
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  type        String   // SCAM_ATTEMPT, CONTACT_SHARING, ABUSIVE_LANGUAGE
+  content     String   // The flagged content
+  actionTaken String   // BLOCKED, WARNED
+  createdAt   DateTime @default(now())
+}
+
 model Chat {
   id           String            @id @default(uuid())
   participants ChatParticipant[]
   messages     Message[]
+  metrics      ConversationMetric?
+  moderation   ChatModerationEvent[]
   createdAt    DateTime          @default(now())
   updatedAt    DateTime          @updatedAt
 }

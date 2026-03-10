@@ -13,6 +13,14 @@ const registerSchema = z.object({
 
 export async function POST(request: Request) {
   try {
+    const dbUrl = process.env.DATABASE_URL;
+    if (!dbUrl) {
+      console.error('DATABASE_URL is missing in environment variables');
+      return NextResponse.json({ 
+        message: 'Database connection not configured. Please set DATABASE_URL in your environment variables.' 
+      }, { status: 500 });
+    }
+
     const body = await request.json();
     const { email, password, phone, role, referrerEmail } = registerSchema.parse(body);
 

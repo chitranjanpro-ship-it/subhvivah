@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { verifyToken } from '@/lib/auth';
+import { analyzeMessage, logModerationEvent, updateTrustScore } from '@/lib/chat-ai';
 
 async function getUser(request: Request) {
   const authHeader = request.headers.get('Authorization');
@@ -45,20 +46,27 @@ export async function POST(request: Request, { params }: { params: { id: string 
   try {
     const { content } = await request.json();
 
-    // AI Moderation (Simple check for now)
-    const isSafe = !content.toLowerCase().includes('scam') && !content.toLowerCase().includes('http');
+    // AI Moderation
+    const analysis = analyzeMessage(content);
     
-    if (!isSafe) {
-      await prisma.activityLog.create({
-        data: {
-          userId: user.id,
-          action: 'CHAT_RISK_DETECTED',
-          details: JSON.stringify({ chatId: params.id, content })
-        }
-      });
+    if (!analysis.isSafe) {
+      await logModerationEvent(
+        params.id, 
+        user.id, 
+        analysis.type || 'UNKNOWN', 
+        content, 
+        'BLOCKED'
+      );
+      
       return NextResponse.json({
-        message: 'Message flagged by AI safety monitoring.'
+        message: analysis.reason,
+        alternative: analysis.suggestedAlternative
       }, { status: 400 });
+    }
+
+    // Message Quality Check (Warn but don't block if it's just minor)
+    if (content.length < 5) {
+      // Small messages don't get blocked but we can suggest better ones later in UI
     }
 
     const message = await prisma.message.create({
@@ -66,6 +74,21 @@ export async function POST(request: Request, { params }: { params: { id: string 
         chatId: params.id,
         senderId: user.id,
         content
+      }
+    });
+
+    // Positive Signal for Trust Engine
+    await updateTrustScore(user.id, 0.1);
+
+    // Update metrics
+    await prisma.conversationMetric.upsert({
+      where: { chatId: params.id },
+      create: {
+        chatId: params.id,
+        lastActivityAt: new Date()
+      },
+      update: {
+        lastActivityAt: new Date()
       }
     });
 
