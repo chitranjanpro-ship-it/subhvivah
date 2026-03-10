@@ -76,64 +76,65 @@ export default function AdminSettingsPage() {
         <div className="grid md:grid-cols-2 gap-8">
           {/* Global Style / Primary Color */}
           <div className="card-style p-8 rounded-[2rem] shadow-sm space-y-6">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-              <Palette className="w-5 h-5" />
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                <Palette className="w-5 h-5" />
+              </div>
+              <h2 className="text-xl font-black">Global Style</h2>
             </div>
-            <h2 className="text-xl font-black">Global Style</h2>
-          </div>
 
-          <div className="space-y-4">
-            <p className="text-xs font-black opacity-40 uppercase tracking-widest">Preset Colors</p>
-            <div className="grid grid-cols-4 gap-3">
-              {PRESET_COLORS.map((color) => (
-                <button
-                  key={color.hex}
-                  onClick={() => {
-                    setPrimaryColor(color.hex);
-                    setCustomColor(color.hex);
-                  }}
-                  className="group relative aspect-square rounded-2xl transition-all hover:scale-110 active:scale-95 flex items-center justify-center border-4 border-card shadow-sm"
-                  style={{ backgroundColor: color.hex }}
-                  title={color.name}
-                >
-                  {primaryColor === color.hex && (
-                    <Check className="w-5 h-5 text-white" />
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="pt-4 space-y-4">
-            <p className="text-xs font-black opacity-40 uppercase tracking-widest">Custom Mixing</p>
-            <div className="flex items-center gap-4">
-              <div 
-                className="w-16 h-16 rounded-2xl border-4 border-card shadow-md flex-shrink-0"
-                style={{ backgroundColor: customColor }}
-              />
-              <div className="flex-grow space-y-2">
-                <input 
-                  type="color" 
-                  value={customColor}
-                  onChange={(e) => {
-                    setCustomColor(e.target.value);
-                    setPrimaryColor(e.target.value);
-                  }}
-                  className="w-full h-10 rounded-xl cursor-pointer bg-primary/5 border border-inherit p-1"
-                />
-                <div className="flex justify-between items-center px-1">
-                  <span className="text-[10px] font-black opacity-40 uppercase tracking-widest">{customColor}</span>
-                  <button 
+            <div className="space-y-4">
+              <p className="text-xs font-black opacity-40 uppercase tracking-widest">Preset Colors</p>
+              <div className="grid grid-cols-4 gap-3">
+                {PRESET_COLORS.map((color) => (
+                  <button
+                    key={color.hex}
                     onClick={() => {
-                      setPrimaryColor('#f43f5e');
-                      setCustomColor('#f43f5e');
+                      setPrimaryColor(color.hex);
+                      setCustomColor(color.hex);
                     }}
-                    className="text-[10px] font-black text-primary uppercase tracking-widest flex items-center gap-1 hover:underline"
+                    className="group relative aspect-square rounded-2xl transition-all hover:scale-110 active:scale-95 flex items-center justify-center border-4 border-card shadow-sm"
+                    style={{ backgroundColor: color.hex }}
+                    title={color.name}
                   >
-                    <RefreshCw className="w-3 h-3" />
-                    Reset
+                    {primaryColor === color.hex && (
+                      <Check className="w-5 h-5 text-white" />
+                    )}
                   </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-4 space-y-4">
+              <p className="text-xs font-black opacity-40 uppercase tracking-widest">Custom Mixing</p>
+              <div className="flex items-center gap-4">
+                <div 
+                  className="w-16 h-16 rounded-2xl border-4 border-card shadow-md flex-shrink-0"
+                  style={{ backgroundColor: customColor }}
+                />
+                <div className="flex-grow space-y-2">
+                  <input 
+                    type="color" 
+                    value={customColor}
+                    onChange={(e) => {
+                      setCustomColor(e.target.value);
+                      setPrimaryColor(e.target.value);
+                    }}
+                    className="w-full h-10 rounded-xl cursor-pointer bg-primary/5 border border-inherit p-1"
+                  />
+                  <div className="flex justify-between items-center px-1">
+                    <span className="text-[10px] font-black opacity-40 uppercase tracking-widest">{customColor}</span>
+                    <button 
+                      onClick={() => {
+                        setPrimaryColor('#f43f5e');
+                        setCustomColor('#f43f5e');
+                      }}
+                      className="text-[10px] font-black text-primary uppercase tracking-widest flex items-center gap-1 hover:underline"
+                    >
+                      <RefreshCw className="w-3 h-3" />
+                      Reset
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
