@@ -191,7 +191,7 @@ export default function LandingPage() {
                   <div className="absolute top-8 left-8 bg-primary/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/20 hidden md:block">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                      <span className="text-xs font-black text-white uppercase tracking-widest">Verified Profiles</span>
+                      <span className="text-xs font-black text-inherit uppercase tracking-widest">Verified Profiles</span>
                     </div>
                   </div>
                 </div>
