@@ -1,46 +1,83 @@
-import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
-import { verifyToken } from '@/lib/auth';
+// src/app/api/admin/users/[id]/route.ts
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { verifyToken } from "@/lib/auth";
+import bcrypt from "bcryptjs";
 
-async function checkAdmin(request: Request) {
-  const authHeader = request.headers.get('Authorization');
-  const token = authHeader?.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
-
+// Admin check helper
+async function checkAdmin(request: NextRequest) {
+  const authHeader = request.headers.get("Authorization");
+  const token = authHeader?.startsWith("Bearer ") ? authHeader.split(" ")[1] : null;
   if (!token) return null;
 
   try {
     const decoded: any = verifyToken(token);
-    if (decoded.role !== 'ADMIN' && decoded.role !== 'SUB_ADMIN') return null;
+    if (decoded.role !== "ADMIN" && decoded.role !== "SUB_ADMIN") return null;
     return decoded;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+// GET user by ID (admin-only)
+export async function GET(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   const admin = await checkAdmin(request);
-  if (!admin || admin.role !== 'ADMIN') return NextResponse.json({ message: 'Unauthorized' }, { status: 403 });
+  if (!admin) return NextResponse.json({ message: "Unauthorized" }, { status: 403 });
 
+  const { id } = await context.params;
   try {
-    const { email, phone, role, isVerified } = await request.json();
-    const user = await prisma.user.update({
-      where: { id: params.id },
-      data: { email, phone, role, isVerified }
+    const user = await prisma.user.findUnique({
+      where: { id },
+      include: { profiles: true, subscriptions: { where: { isActive: true } } },
     });
-    return NextResponse.json({ message: 'User updated', user });
+    if (!user) return NextResponse.json({ message: "User not found" }, { status: 404 });
+    return NextResponse.json({ user }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: 'Update failed' }, { status: 500 });
+    console.error("GET User Error:", error);
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+// PUT update user (admin-only)
+export async function PUT(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   const admin = await checkAdmin(request);
-  if (!admin || admin.role !== 'ADMIN') return NextResponse.json({ message: 'Unauthorized' }, { status: 403 });
+  if (!admin || admin.role !== "ADMIN") return NextResponse.json({ message: "Unauthorized" }, { status: 403 });
 
+  const { id } = await context.params;
   try {
-    await prisma.user.delete({ where: { id: params.id } });
-    return NextResponse.json({ message: 'User deleted' });
+    const { password, ...rest } = await request.json();
+    let data: any = { ...rest };
+    if (password) {
+      data.password = await bcrypt.hash(password, 10);
+    }
+    const updatedUser = await prisma.user.update({ where: { id }, data });
+    return NextResponse.json({ user: updatedUser }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: 'Delete failed' }, { status: 500 });
+    console.error("PUT User Error:", error);
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+  }
+}
+
+// DELETE user (admin-only)
+export async function DELETE(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
+  const admin = await checkAdmin(request);
+  if (!admin || admin.role !== "ADMIN") return NextResponse.json({ message: "Unauthorized" }, { status: 403 });
+
+  const { id } = await context.params;
+  try {
+    await prisma.user.delete({ where: { id } });
+    return NextResponse.json({ message: "User deleted successfully" }, { status: 200 });
+  } catch (error) {
+    console.error("DELETE User Error:", error);
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }

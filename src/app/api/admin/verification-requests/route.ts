@@ -5,14 +5,13 @@ import { verifyToken } from '@/lib/auth';
 async function checkAdmin(request: Request) {
   const authHeader = request.headers.get('Authorization');
   const token = authHeader?.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
-
   if (!token) return null;
 
   try {
     const decoded: any = verifyToken(token);
     if (decoded.role !== 'ADMIN' && decoded.role !== 'SUB_ADMIN') return null;
     return decoded;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -28,7 +27,7 @@ export async function GET(request: Request) {
       orderBy: { createdAt: 'desc' }
     });
     return NextResponse.json({ requests });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ message: 'Failed to fetch requests' }, { status: 500 });
   }
 }

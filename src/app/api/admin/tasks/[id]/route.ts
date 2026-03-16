@@ -1,34 +1,50 @@
-import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
-import { verifyToken } from '@/lib/auth';
+// src/app/api/admin/tasks/[id]/route.ts
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
-async function checkAdmin(request: Request) {
-  const authHeader = request.headers.get('Authorization');
-  const token = authHeader?.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
+// Type-safe params for Next.js 16 dynamic route
+type ParamsType = { params: { id: string } };
 
-  if (!token) return null;
-
+export async function GET(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
+  const { id } = await context.params;
   try {
-    const decoded: any = verifyToken(token);
-    if (decoded.role !== 'ADMIN' && decoded.role !== 'SUB_ADMIN') return null;
-    return decoded;
+    const task = await prisma.task.findUnique({ where: { id } });
+    if (!task) return NextResponse.json({ message: "Task not found" }, { status: 404 });
+    return NextResponse.json({ task }, { status: 200 });
   } catch (error) {
-    return null;
+    console.error("GET Task Error:", error);
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
-  const admin = await checkAdmin(request);
-  if (!admin) return NextResponse.json({ message: 'Unauthorized' }, { status: 403 });
-
+export async function PUT(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
+  const { id } = await context.params;
   try {
-    const { status } = await request.json();
-    const task = await prisma.task.update({
-      where: { id: params.id },
-      data: { status }
-    });
-    return NextResponse.json({ task });
+    const body = await request.json();
+    const updatedTask = await prisma.task.update({ where: { id }, data: body });
+    return NextResponse.json({ task: updatedTask }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: 'Update failed' }, { status: 500 });
+    console.error("PUT Task Error:", error);
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
+  const { id } = await context.params;
+  try {
+    await prisma.task.delete({ where: { id } });
+    return NextResponse.json({ message: "Task deleted successfully" }, { status: 200 });
+  } catch (error) {
+    console.error("DELETE Task Error:", error);
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }

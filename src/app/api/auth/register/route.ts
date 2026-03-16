@@ -1,87 +1,53 @@
+// src/app/api/auth/register/route.ts
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
-import { hashPassword, generateToken } from '@/lib/auth';
-import { z } from 'zod';
-
-const registerSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-  phone: z.string().optional(),
-  role: z.enum(['ADMIN', 'USER', 'BROKER', 'SUB_ADMIN']).default('USER'),
-  referrerEmail: z.string().email().optional(),
-});
+import { prisma } from '@/lib/prisma';
+import bcrypt from 'bcryptjs';
 
 export async function POST(request: Request) {
   try {
-    const dbUrl = process.env.DATABASE_URL;
-    if (!dbUrl) {
-      console.error('DATABASE_URL is missing in environment variables');
-      return NextResponse.json({ 
-        message: 'Database connection not configured. Please set DATABASE_URL in your environment variables.' 
-      }, { status: 500 });
+    const { email, password, phone } = await request.json();
+
+    // Validate required fields
+    if (!email || !password) {
+      return NextResponse.json({ message: 'Email and password are required' }, { status: 400 });
     }
 
-    const body = await request.json();
-    const { email, password, phone, role, referrerEmail } = registerSchema.parse(body);
-
+    // Check if a user already exists (by email or phone)
     const existingUser = await prisma.user.findFirst({
       where: {
         OR: [
           { email },
           phone ? { phone } : undefined
-        ].filter(Boolean)
-      }
+        ].filter(Boolean) as any[],
+      },
     });
 
     if (existingUser) {
-      return NextResponse.json({ message: 'Email or phone already registered' }, { status: 400 });
+      return NextResponse.json({ message: 'User already exists' }, { status: 409 });
     }
 
-    const hashedPassword = await hashPassword(password);
-    
-    const user = await prisma.user.create({
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create the new user
+    const newUser = await prisma.user.create({
       data: {
         email,
         password: hashedPassword,
-        phone,
-        role,
+        phone: phone || null,
+        role: 'USER'
+      },
+      select: {
+        id: true,
+        email: true,
+        role: true
       }
     });
 
-    // Handle referral
-    if (referrerEmail) {
-      const referrer = await prisma.user.findUnique({ where: { email: referrerEmail } });
-      if (referrer) {
-        await prisma.referral.create({
-          data: {
-            referrerId: referrer.id,
-            referredId: user.id
-          }
-        });
-      }
-    }
-
-    const token = generateToken({ id: user.id, email: user.email, role: user.role });
-
-    const response = NextResponse.json({
-      message: 'User registered successfully',
-      user: { id: user.id, email: user.email, role: user.role },
-      token
-    }, { status: 201 });
-
-    response.cookies.set('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 // 7 days
-    });
-
-    return response;
+    // Return created user info
+    return NextResponse.json({ user: newUser }, { status: 201 });
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json({ message: 'Invalid input', errors: error.errors }, { status: 400 });
-    }
-    console.error('Registration error:', error);
+    console.error('Register error:', error);
     return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
   }
 }

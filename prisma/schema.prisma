@@ -1,4 +1,4 @@
-// This is your Prisma schema file,
+// This is your Prisma schema file, 
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
@@ -53,6 +53,20 @@ enum ProfileStatus {
   SUSPENDED
 }
 
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
 model User {
   id            String    @id @default(uuid())
   email         String    @unique
@@ -76,6 +90,18 @@ model User {
   assignedTasks Task[]     @relation("AssignedTo")
   createdTasks  Task[]     @relation("CreatedBy")
   moderationEvents ChatModerationEvent[]
+  
+  teamsCreated Team[]      @relation("CreatedTeams")
+}
+
+model Team { 
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdById String
+  createdBy   User     @relation("CreatedTeams", fields: [createdById], references: [id])
 }
 
 model Task {
@@ -93,23 +119,8 @@ model Task {
   createdBy     User      @relation("CreatedBy", fields: [createdById], references: [id])
   
   vertical      AdminVertical
-  
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-}
-
-enum TaskStatus {
-  PENDING
-  IN_PROGRESS
-  COMPLETED
-  CANCELLED
-}
-
-enum Priority {
-  LOW
-  MEDIUM
-  HIGH
-  URGENT
 }
 
 model Profile {
@@ -119,9 +130,8 @@ model Profile {
   userType          UserType
   status            ProfileStatus @default(PENDING)
   riskScore         Float         @default(0.0)
-  trustScore        Float         @default(50.0) // Initial trust score
+  trustScore        Float         @default(50.0)
 
-  // Basic Details
   name              String
   age               Int
   gender            Gender
@@ -131,23 +141,19 @@ model Profile {
   location          String
   bio               String?
   
-  // Professional
   education         String
   occupation        String
   company           String?
   income            Float?
   
-  // Family
   familyBackground  String?
   parentsDetails    String?
   siblingsDetails   String?
   
-  // Lifestyle
   diet              String?
   smoking           Boolean?
   drinking          Boolean?
   
-  // Partner Preferences
   prefAgeMin        Int?
   prefAgeMax        Int?
   prefLocation      String?
@@ -175,7 +181,7 @@ model Document {
   id          String   @id @default(uuid())
   profileId   String
   profile     Profile  @relation(fields: [profileId], references: [id])
-  type        String   // ID, Employment, Income
+  type        String
   url         String
   isVerified  Boolean  @default(false)
   createdAt   DateTime @default(now())
@@ -202,7 +208,7 @@ model Referral {
 
 model MessageSuggestion {
   id        String   @id @default(uuid())
-  category  String   // STARTER, ICEBREAKER, REPLY, FOLLOW_UP
+  category  String
   content   String
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
@@ -213,7 +219,7 @@ model ConversationMetric {
   chatId            String   @unique
   chat              Chat     @relation(fields: [chatId], references: [id])
   responseRate      Float    @default(0.0)
-  avgReplyTime      Int      @default(0) // in minutes
+  avgReplyTime      Int      @default(0)
   isSuccessful      Boolean  @default(false)
   mutualInterest    Boolean  @default(false)
   lastActivityAt    DateTime @default(now())
@@ -227,9 +233,9 @@ model ChatModerationEvent {
   chat        Chat     @relation(fields: [chatId], references: [id])
   userId      String
   user        User     @relation(fields: [userId], references: [id])
-  type        String   // SCAM_ATTEMPT, CONTACT_SHARING, ABUSIVE_LANGUAGE
-  content     String   // The flagged content
-  actionTaken String   // BLOCKED, WARNED
+  type        String
+  content     String
+  actionTaken String
   createdAt   DateTime @default(now())
 }
 

@@ -1,7 +1,25 @@
+# vercel
 .vercel
+
+# node modules
 node_modules
-.env*.local
+
+# environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# nextjs build files
 .next
+
+# build folders
 dist
 build
+
+# logs
 *.log
+npm-debug.log
+yarn-debug.log
+yarn-error.log

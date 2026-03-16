@@ -6,7 +6,6 @@ import bcrypt from 'bcryptjs';
 async function checkAdmin(request: Request) {
   const authHeader = request.headers.get('Authorization');
   const token = authHeader?.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
-
   if (!token) return null;
 
   try {
