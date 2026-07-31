@@ -45,7 +45,7 @@ export default function SearchPage() {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="text-2xl font-bold text-primary-600 flex items-center gap-2">
             <Heart className="fill-primary-600" />
-            <span>Subhvivah</span>
+            <span>SubhVivah</span>
           </Link>
           <nav className="hidden md:flex items-center gap-8">
             <Link href="/#features" className="text-gray-600 hover:text-primary-600 transition-colors font-medium">Features</Link>

@@ -78,7 +78,7 @@ export default function PremiumPage() {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <Heart className="w-12 h-12 text-primary-600 mx-auto mb-6 fill-primary-600" />
           <h1 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">Upgrade Your Journey</h1>
-          <p className="text-xl opacity-60 font-medium">Find your soulmate faster with Subhvivah Premium features.</p>
+          <p className="text-xl opacity-60 font-medium">Find your soulmate faster with SubhVivah Premium features.</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">

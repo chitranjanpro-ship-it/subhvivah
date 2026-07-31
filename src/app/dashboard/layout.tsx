@@ -64,7 +64,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
         <div className="p-6">
           <Link href="/dashboard" className="flex items-center gap-2 text-primary text-xl font-bold">
             <Heart className="fill-primary" />
-            <span>Subhvivah</span>
+            <span>SubhVivah</span>
           </Link>
         </div>
         <nav className="flex-grow px-4 space-y-2">

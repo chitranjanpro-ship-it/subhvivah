@@ -88,7 +88,7 @@ export default function LoginPage() {
         <div className="text-center">
           <Link href="/" className="inline-flex items-center gap-2 text-primary text-3xl font-bold hover:scale-105 transition-transform">
             <Heart className="fill-primary w-8 h-8" />
-            <span>Subhvivah</span>
+            <span>SubhVivah</span>
           </Link>
           <h2 className="mt-8 text-3xl font-extrabold text-inherit tracking-tight">Welcome Back</h2>
           <p className="mt-3 text-sm text-inherit opacity-70 font-medium">
@@ -173,7 +173,7 @@ export default function LoginPage() {
 
         <div className="text-center pt-6 border-t border-gray-100">
           <p className="text-sm text-gray-500 font-medium">
-            New to Subhvivah?{" "}
+            New to SubhVivah?{" "}
             <Link href="/register" className="text-primary-600 font-bold hover:text-primary-500 transition-colors">
               Create an account
             </Link>

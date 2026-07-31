@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Heart, Shield, Users, Award, CheckCircle, Moon, Sun, Monitor, ArrowRight, Sparkles, Crown, Flower, Sunset, Trees, Waves, Zap, History } from "lucide-react";
+import { Shield, Users, Award, CheckCircle, Moon, Sun, ArrowRight, Sparkles, Crown, Flower, Sunset, Trees, Waves, Zap, History } from "lucide-react";
 import { useEffect } from "react";
 import { useThemeStore, ThemeMode } from "@/store/theme.store";
 import { useAuthStore } from "@/store/auth.store";
+import { BrandSwitcher } from "@/components/BrandSwitcher";
 
 const ThemeToggle = () => {
   const { mode, setMode } = useThemeStore();
@@ -47,20 +48,22 @@ export default function LandingPage() {
     <div className="flex flex-col min-h-screen bg-inherit transition-colors duration-300">
       <header className="fixed top-0 w-full z-50 card-style border-b border-inherit backdrop-blur-md">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold text-primary flex items-center gap-2">
-            <Heart className="fill-primary" />
-            <span>Subhvivah</span>
-          </Link>
+          <BrandSwitcher
+            testId="brand-switcher-header"
+            className="text-primary font-bold text-lg sm:text-2xl"
+            textClassName="font-bold tracking-tight"
+          />
           <nav className="hidden md:flex items-center gap-8">
             <Link href="#features" className="text-inherit opacity-70 hover:opacity-100 transition-opacity font-medium">Features</Link>
             <Link href="#premium" className="text-inherit opacity-70 hover:opacity-100 transition-opacity font-medium">Premium</Link>
             <Link href="/about" className="text-inherit opacity-70 hover:opacity-100 transition-opacity font-medium">About Us</Link>
           </nav>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <ThemeToggle />
-            <Link href="/login" className="text-inherit opacity-70 hover:opacity-100 font-medium transition-opacity">Login</Link>
-            <Link href="/register" className="bg-primary text-primary-foreground px-6 py-2 rounded-full font-medium hover:scale-105 transition-all">
-              Join Free
+            <Link href="/login" className="hidden sm:inline-flex text-inherit opacity-70 hover:opacity-100 font-medium transition-opacity">Login</Link>
+            <Link href="/register" className="bg-primary text-primary-foreground px-4 sm:px-6 py-2 rounded-full font-medium hover:scale-105 transition-all text-sm sm:text-base whitespace-nowrap">
+              <span className="sm:hidden">Join</span>
+              <span className="hidden sm:inline">Join Free</span>
             </Link>
           </div>
         </div>
@@ -104,7 +107,7 @@ export default function LandingPage() {
         <section id="features" className="py-24 bg-inherit">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-black text-inherit mb-4 tracking-tight">Why Choose Subhvivah?</h2>
+              <h2 className="text-3xl lg:text-4xl font-black text-inherit mb-4 tracking-tight">Why Choose SubhVivah?</h2>
               <p className="text-inherit opacity-60 max-w-2xl mx-auto font-medium">We prioritize your safety and family values above all else.</p>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
@@ -215,7 +218,7 @@ export default function LandingPage() {
 
                 <div className="space-y-6">
                   <p className="text-lg text-inherit opacity-70 leading-relaxed font-medium">
-                    Founded in the heart of Jamshedpur, <span className="text-primary font-bold">Subhvivah</span> was born from a simple yet profound vision: to bring the authenticity of traditional Indian matchmaking to the convenience of the modern age.
+                    Founded in the heart of Jamshedpur, <span className="text-primary font-bold">SubhVivah</span> was born from a simple yet profound vision: to bring the authenticity of traditional Indian matchmaking to the convenience of the modern age.
                   </p>
                   <p className="text-lg text-inherit opacity-70 leading-relaxed font-medium">
                     We understand that marriage in India isn't just a union of two individuals, but a coming together of two families. That's why we've built a platform that respects these values while utilizing cutting-edge AI to ensure your safety and success.
@@ -276,12 +279,14 @@ export default function LandingPage() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-16 mb-20">
             <div className="col-span-1 md:col-span-2">
-              <Link href="/" className="text-3xl font-black text-primary flex items-center gap-3 mb-8">
-                <Heart className="fill-primary w-8 h-8" />
-                <span>SUBHVIVAH</span>
-              </Link>
+              <BrandSwitcher
+                testId="brand-switcher-footer"
+                className="text-primary text-2xl sm:text-3xl font-black mb-8"
+                textClassName="font-black uppercase tracking-tight min-w-[8rem] sm:min-w-[10rem]"
+                iconClassName="h-11 w-11 sm:h-12 sm:w-12"
+              />
               <p className="text-lg text-inherit opacity-60 mb-8 max-w-md leading-relaxed">
-                Subhvivah is Jamshedpur's leading matrimonial platform, committed to bringing families together through secure and traditional matchmaking.
+                SubhVivah is Jamshedpur's leading matrimonial platform, committed to bringing families together through secure and traditional matchmaking.
               </p>
             </div>
             <div>

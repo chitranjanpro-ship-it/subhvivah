@@ -97,7 +97,7 @@ export default function RegisterPage() {
         <div className="text-center">
           <Link href="/" className="inline-flex items-center gap-2 text-primary-600 text-3xl font-bold hover:scale-105 transition-transform">
             <Heart className="fill-primary-600 w-8 h-8" />
-            <span>Subhvivah</span>
+            <span>SubhVivah</span>
           </Link>
           <h2 className="mt-8 text-3xl font-extrabold text-gray-900 tracking-tight">Create your account</h2>
           <p className="mt-3 text-sm text-gray-500 font-medium">

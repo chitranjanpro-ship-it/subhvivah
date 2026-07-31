@@ -11,7 +11,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="text-2xl font-bold text-primary flex items-center gap-2">
             <Heart className="fill-primary" />
-            <span>Subhvivah</span>
+            <span>SubhVivah</span>
           </Link>
           <nav className="flex items-center gap-8">
             <Link href="/" className="text-inherit opacity-70 hover:opacity-100 font-medium transition-opacity">Home</Link>
@@ -62,7 +62,7 @@ export default function AboutPage() {
 
               <div className="space-y-6 text-lg text-inherit opacity-80 leading-relaxed font-medium">
                 <p>
-                  Founded with the goal of revolutionizing the Indian matrimonial landscape, <span className="text-primary font-bold">Subhvivah</span> combines deep-rooted family values with state-of-the-art technology.
+                  Founded with the goal of revolutionizing the Indian matrimonial landscape, <span className="text-primary font-bold">SubhVivah</span> combines deep-rooted family values with state-of-the-art technology.
                 </p>
                 <p>
                   We believe that marriage is the most sacred bond in our culture. Our platform is designed to facilitate meaningful connections while ensuring the highest standards of safety, privacy, and verification for every user.
